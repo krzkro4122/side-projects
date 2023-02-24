@@ -1,0 +1,157 @@
+/* TAG STYLES */
+
+body {
+    /* Global stuff */
+    background-color: #1f2127;
+    margin: 7%;
+
+    /* Font Settings */
+    font-size: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: white;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    height: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    opacity: 60%;
+}
+
+button {
+    color: white;
+    background-color: black;
+    padding: 3px;
+    border-color: gold;
+    border-width: 0.5px;
+    border-radius: 5px;
+}
+
+input {
+    transform: scale(1.5);
+    color: white;
+    background-color: black;
+    padding: 2px;
+    margin-left: 25px;
+    border-color: gold;
+    border-width: 0.5px;
+    border-radius: 5px;
+}
+
+form {
+    text-align: center;
+    margin-left: 6%;
+}
+
+p {
+    color: black;
+    font-size: 200%;
+    -webkit-text-stroke: 0.5px;
+    -webkit-text-stroke-color: gold;
+}
+
+/* CLASS STYLES */
+
+/* ID STYLES */
+
+#mainContainer {
+    /* outline: dashed 1px white; */
+    width: 500px;
+    height: 300px;
+    margin: 0 auto;
+
+    /* Flex box inside */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+
+    /* Scale */
+    -webkit-transform: scale(1.4);
+    -moz-transform: scale(1.4);
+    -ms-transform: scale(1.4);
+    -o-transform: scale(1.4);
+    transform: scale(1.4);
+
+    /* Box Shadow */
+    -webkit-box-shadow: 0px 0px 60px -34px gold;
+    -moz-box-shadow: 0px 0px 60px -34px gold;
+    box-shadow: 0px 0px 60px -34px gold;
+
+    border-radius: 30px;
+}
+
+#smallContainer {
+    padding: 10px;
+    /* outline: dashed 1px white; */
+}
+
+#text {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+#slider {
+    height: 5px;
+    width: 300px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+#value {
+    height: 5px;
+    border-radius: 10px;
+    background-color: gold;
+}
+
+#sliderPointer {
+    position: relative;
+    top: -7px;
+    left: 145px;
+    height: 10px;
+    width: 10px;
+    background-color: white;
+    border-radius: 10px;
+    outline: 2px;
+    outline-style: solid;
+    outline-color: black;
+}
+
+#prize {
+    visibility: hidden;
+    margin-top: 4%;
+    font-size: 250%;
+    text-align: center;
+}
+
+#hint {
+    margin-top: 6%;
+    text-align: center;
+    font-size: large;
+    opacity: 60%;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#credits {
+    padding: 10px;
+    color: gold ;
+    margin-left: 5px;
+    border-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 15px;
+    background-color: #1f2127;
+}
