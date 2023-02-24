@@ -1,0 +1,48 @@
+[submodule "amogus"]
+	path = amogus
+	url = ./amogus
+[submodule "c-donut"]
+	path = c-donut
+	url = ./c-donut
+[submodule "django-learning-course"]
+	path = django-learning-course
+	url = ./django-learning-course
+[submodule "fibonacci-jest"]
+	path = fibonacci-jest
+	url = ./fibonacci-jest
+[submodule "goofy-slider"]
+	path = goofy-slider
+	url = ./goofy-slider
+[submodule "heap-sort"]
+	path = heap-sort
+	url = ./heap-sort
+[submodule "k_means"]
+	path = k_means
+	url = ./k_means
+[submodule "race-car-telemetry"]
+	path = race-car-telemetry
+	url = ./race-car-telemetry
+[submodule "scripting_agh"]
+	path = scripting_agh
+	url = ./scripting_agh
+[submodule "simple-ring-buffer"]
+	path = simple-ring-buffer
+	url = ./simple-ring-buffer
+[submodule "system-calculator"]
+	path = system-calculator
+	url = ./system-calculator
+[submodule "tic-tac-toe"]
+	path = tic-tac-toe
+	url = ./tic-tac-toe
+[submodule "ticket-reservation-system"]
+	path = ticket-reservation-system
+	url = ./ticket-reservation-system
+[submodule "timer"]
+	path = timer
+	url = ./timer
+[submodule "traffic_generator"]
+	path = traffic_generator
+	url = ./traffic_generator
+[submodule "machine-learning-course"]
+	path = machine-learning-course
+	url = ./machine-learning-course
