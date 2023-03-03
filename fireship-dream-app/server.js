@@ -12,14 +12,14 @@ const openai = new OpenAIApi(configuration);
 import express from "express";
 import cors from "cors";
 import { readFile } from "fs/promises";
-import { dirname } from "path";
+import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname + "/dist"));
+app.use(express.static(join(__dirname + "/dist")));
 
 app.get("/", async (request, response) => {
   response.send(await readFile("./index.html", "utf-8"));
@@ -45,7 +45,7 @@ app.post("/dream", async (request, response) => {
   }
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5137;
 app.listen(PORT, () =>
   console.log(`Started a server on http://localhost:${PORT}`)
 );
