@@ -12,7 +12,12 @@ console.log(naiveSearch(arr, "x")); // found at 5
 console.log(naiveSearch(arr, "f")); // not found (-1)
 
 // Binary search -> the array has to be sorted BUT it has O(logn) time complexity
-function binarySearch(arr, target, start = 0, end = arr.length - 1) {
+export default function binarySearch(
+  arr,
+  target,
+  start = 0,
+  end = arr.length - 1
+) {
   if (start > end) {
     console.log("Not found!");
     return -1;

@@ -1,4 +1,4 @@
-function cumulativeSum(numbers) {
+export default function cumulativeSum(numbers) {
   return numbers.reduce(
     (previousValue, currentValue) => previousValue + currentValue,
     0
