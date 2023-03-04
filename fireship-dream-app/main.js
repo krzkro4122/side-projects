@@ -8,25 +8,33 @@ form.addEventListener("submit", async (event) => {
 
   const data = new FormData(form);
 
-  const response = await fetch(`http://localhost:5137/dream`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      prompt: data.get("prompt"),
-    }),
-  });
+  try {
+    const response = await fetch(
+      `https://fireship-dream-app.lm.r.appspot.com/dream`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: data.get("prompt"),
+        }),
+      }
+    );
 
-  if (response.ok) {
-    const { image } = await response.json();
+    if (response.ok) {
+      const { image } = await response.json();
 
-    const result = document.querySelector("#result");
-    result.innerHTML = `<img src="${image}" width="512" />`;
-  } else {
-    const error = await response.text();
-    alert(error);
+      const result = document.querySelector("#result");
+      result.innerHTML = `<img src="${image}" width="512" />`;
+    } else {
+      const error = await response.text();
+      alert(error);
+      console.error(error);
+    }
+  } catch (error) {
     console.error(error);
+    alert(error);
   }
 
   hideSpinner();
