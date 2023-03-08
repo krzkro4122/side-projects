@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+#main {
+  display: flex;
+}
+
+#profile {
+  z-index: 3;
+
+  position: absolute;
+  left: 50%;
+  top: 5vh;
+  transform: translate(-50%, 0);
+
+  height: 30vh;
+
+  border-radius: 100%;
+  border-style: solid;
+  border-color: white;
+}
+
+
+#cards {
+  top: 60vh;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  z-index: 5;
+}
