@@ -1,0 +1,73 @@
+:root {
+    --dark: #121212;
+    --bg-color: #242424;
+
+    /* Terminal colors */
+    --left-bg-color: #242424;
+    --left-fancy: #70CD00;
+
+    /* UJ colors */
+    --right-bg-color: #1e62b1;
+    --right-fancy: #fbce01;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+.side {
+    height: 100vh;
+    width: 100%;
+
+    display: grid;
+    place-items: center;
+
+    overflow: hidden;
+    position: absolute;
+}
+
+.side .title {
+    font-size: 5vw;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    margin: 0px 10vw;
+    width: 80vw;
+    text-align: center;
+}
+
+.side .fancy {
+    font-size: 1.3em;
+    line-height: 0.9em;
+}
+
+#left-side {
+    background-color: var(--left-bg-color);
+    z-index: 2;
+}
+
+#left-side .title {
+    color: white;
+}
+
+#left-side .fancy {
+    color: var(--left-fancy);
+    font-family: "Lucida Console", Courier, monospace;
+}
+
+#right-side {
+    background-color: var(--right-bg-color);
+    z-index: 1;
+}
+
+#right-side .title {
+    color: white;
+}
+
+#right-side .fancy {
+    color: var(--right-fancy);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.age {
+    opacity: 0.4;
+}
