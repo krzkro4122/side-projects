@@ -21,12 +21,16 @@ function App() {
         />
         <Card
           title={"AI Image Generator"}
-          subtitle={"A text-based image generator powered by OpenAI's DALL-E API"}
+          subtitle={
+            "A text-based image generator powered by OpenAI's DALL-E API"
+          }
           href={"https://fireship-dream-app.lm.r.appspot.com/"}
         />
         <Card
           title={"Goofy Slider"}
-          subtitle={"A minigame breaking the conventional usage of the \"slider\" UI element"}
+          subtitle={
+            'A minigame breaking the conventional usage of the "slider" UI element'
+          }
           href={"https://regal-extension-379017.lm.r.appspot.com/"}
         />
       </div>

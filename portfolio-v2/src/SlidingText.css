@@ -54,6 +54,14 @@ body {
     font-family: "Lucida Console", Courier, monospace;
 }
 
+#left-side #f5 {
+    position: absolute;
+    z-index: 3;
+    left: 5vh;
+    top: 5vh;
+    width: 5vh;
+}
+
 #right-side {
     background-color: var(--right-bg-color);
     z-index: 1;
@@ -66,6 +74,14 @@ body {
 #right-side .fancy {
     color: var(--right-fancy);
     font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#right-side #uj {
+    position: absolute;
+    z-index: 3;
+    width: 5vh;
+    left: 92%;
+    top: 4vh;
 }
 
 .age {
