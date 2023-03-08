@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import ujLogo from "./assets/uj.svg";
+import uj from "./assets/uj.svg";
+import f5 from "./assets/f5.svg";
 import "./SlidingText.css";
 
 function SlidingText() {
@@ -30,6 +31,7 @@ function SlidingText() {
           Krzysztof Król <span className="age">({age})</span>
           <br />
           <span className="fancy">Software Developer</span>
+          <img id="f5" src={f5} alt="F5 Networks logo" />
         </div>
       </div>
       <div id="right-side" className="side">
@@ -38,6 +40,7 @@ function SlidingText() {
           <br />
           <span className="fancy">Working Student</span>
         </div>
+        <img id="uj" src={uj} alt="Jagiellonian University logo" />
       </div>
     </div>
   );
