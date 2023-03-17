@@ -1,0 +1,28 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: rgb(20, 20, 20);
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+p {
+    color: white;
+    font-size: 5vmin;
+    animation: spin 2500ms linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
