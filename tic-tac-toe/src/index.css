@@ -1,60 +1,126 @@
+:root {
+  --bg-color: #29485C;
+  --tile-color: rgb(26, 114, 169, .4);
+  --border-color: rgb(101, 178, 225, .9);
+  --active-color: rgb(26, 114, 169, .8);
+  --player-color: rgb(255, 255, 255, .8);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
 body {
-    font: 24px "Century Gothic", Futura, sans-serif;
-    display: flex;
-    justify-content: center;
-  }
+  width: 100vw;
+  height: 100vh;
 
-  ol, ul {
-    padding-left: 30px;
-  }
+  background-color: var(--bg-color);
+  color: var(--border-color);
 
-  .board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
+  font: 4rem "Century Gothic", Futura, sans-serif;
+  display: grid;
+  place-items: center;
+}
 
-  .status {
-    margin-bottom: 10px;
-  }
+.square:hover,
+.historyEntry:hover {
+  transform: scale(1.05);
+}
 
-  .square {
-    background: rgba(0, 5, 159, 0.716);
-    border: 1px solid #999;
-    float: left;
-    font-size: 48px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 68px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 68px;
-  }
+.square:active,
+.historyEntry:active {
+  background-color: var(--active-color);
+}
 
-  .square:focus {
-    outline: none;
-  }
+ol,
+ul {
+  list-style: none;
+}
 
-  .kbd-navigation .square:focus {
-    background: #ddd;
-  }
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
 
-  .game {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.status {
+  margin-bottom: 10px;
+}
 
-  .game-info {
-    margin-left: 20px;
-  }
+.square {
+  background: var(--tile-color);
+  border: 0.2rem solid var(--border-color);
+  border-radius: 0.5rem;
 
-  .imageContainer {
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-  }
+  box-shadow: 0rem 0rem 0.5rem var(--tile-color);
+
+  float: left;
+
+  text-align: center;
+  color: var(--player-color);
+
+  font-size: 6rem;
+  font-weight: bold;
+  font-family: 'Red Hat Mono', monospace;
+  /* line-height: 34px; */
+
+  margin: 0.15rem;
+
+  aspect-ratio: 1 / 1;
+  width: 10rem;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  padding-top: 10rem;
+  justify-content: space-evenly;
+}
+
+.game-info {
+  padding-top: 2rem;
+  width: 32rem;
+  aspect-ratio: 1 / 2;
+  font-family: 'Red Hat Text', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  /* border: 1px solid white; */
+}
+
+.status {
+  font-weight: 400;
+  color: var(--player-color)
+}
+
+.historyEntry {
+  background-color: var(--tile-color);
+  color: var(--player-color);
+
+  font-size: 2rem;
+
+  box-shadow: 0rem 0rem 0.1rem var(--border-color);
+
+  padding: 0.35em;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 20rem;
+  border: 0.2rem solid var(--border-color);
+  border-radius: 0.2em;
+}
+
+.clickable {
+  transition: transform 100ms ease-in;
+  transition: background-color 50ms ease-in;
+}
