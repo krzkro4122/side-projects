@@ -1,2 +1,3 @@
 - Have to add state so that tiles can't be clicked/hovered after the game stops
 - Add a crossing line after a won game
+- Sliding historyEntries
