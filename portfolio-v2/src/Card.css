@@ -48,6 +48,9 @@
     width: calc(100% - 3vmin);
     padding: 1.5vmin;
     position: relative;;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     transition: background-position 350ms ease;
     z-index: 2;
 }
@@ -57,7 +60,8 @@
 }
 
 .card-title,
-.card-subtitle {
+.card-subtitle,
+.stack {
     color: white;
     font-family: "Anek Latin", sans-serif;
     font-weight: 400;
@@ -71,6 +75,10 @@
 .card-subtitle {
     font-size: 1.5vmin;
     margin-top: 1vmin;
+}
+
+.stack {
+    font-size: 1.4vmin;
 }
 
 a {

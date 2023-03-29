@@ -25,6 +25,7 @@ function App() {
             "A text-based image generator powered by OpenAI's DALL-E API"
           }
           href={"https://fireship-dream-app.lm.r.appspot.com/"}
+          stack={["Frontend: Vanilla JS", "Backend: Express.js"]}
         />
         <Card
           title={"Goofy Slider"}
@@ -32,6 +33,15 @@ function App() {
             'A minigame breaking the conventional usage of the "slider" UI element'
           }
           href={"https://regal-extension-379017.lm.r.appspot.com/"}
+          stack={["Frontend: Vanilla JS", "Backend: Express.js"]}
+        />
+         <Card
+          title={"Tic Tac Toe"}
+          subtitle={
+            'A classic tic-tac-toe game with interactive move-history' 
+          }
+          href={"https://regal-extension-379017.lm.r.appspot.com/"}
+          stack={["Frontend: React.js", "Backend: Flask"]}
         />
       </div>
     </div>
