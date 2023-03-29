@@ -38,9 +38,9 @@ function App() {
          <Card
           title={"Tic Tac Toe"}
           subtitle={
-            'A classic tic-tac-toe game with interactive move-history' 
+            'A classic tic-tac-toe game with interactive move-history'
           }
-          href={"https://regal-extension-379017.lm.r.appspot.com/"}
+          href={"https://tic-tac-toe-382117.lm.r.appspot.com/"}
           stack={["Frontend: React.js", "Backend: Flask"]}
         />
       </div>
