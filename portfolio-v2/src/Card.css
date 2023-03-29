@@ -38,16 +38,15 @@
 }
 
 .card-content {
-    background: radial-gradient(
-        rgba(255, 255, 255, 0.2) 8%,
-        transparent 8%
-    );
+    background: radial-gradient(rgba(255, 255, 255, 0.2) 8%,
+            transparent 8%);
     background-position: 0% 0%;
     background-size: 3vmin 3vmin;
     height: calc(100% - 3vmin);
     width: calc(100% - 3vmin);
     padding: 1.5vmin;
-    position: relative;;
+    position: relative;
+    ;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -55,7 +54,7 @@
     z-index: 2;
 }
 
-.card:hover > .card-content {
+.card:hover>.card-content {
     background-position: -10% 0%;
 }
 
@@ -78,7 +77,8 @@
 }
 
 .stack {
-    font-size: 1.4vmin;
+    font-size: 1.5vmin;
+    opacity: 65%;
 }
 
 a {
