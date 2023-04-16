@@ -1,0 +1,29 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: rgb(30, 30, 30);
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+h1 {
+    color: white;
+    font-size: 8rem;
+    font-family: Arial, Helvetica, sans-serif;
+    animation: spin 2500ms ease-in-out infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
