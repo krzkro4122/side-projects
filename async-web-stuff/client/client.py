@@ -10,7 +10,7 @@ async def get_index(url, port):
 
 
 async def get_item(url, port, item=1, q=1):
-    result = await http_requests.get_async(f"{url}:{port}items/{item}?q={q}")
+    result = await http_requests.get_async(f"{url}:{port}/items/{item}?q={q}")
     print(result)
 
 
