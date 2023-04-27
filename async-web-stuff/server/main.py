@@ -1,50 +1,30 @@
-import os
-import sys
-
 from typing import Union
-from dataclasses import dataclass
 
-import uvicorn
-
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@dataclass
-class ConnectionParams:
-    url: str
-    port: int
+templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {
+        "Hello": "World"
+    }
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-
-def serve(cp: ConnectionParams):
-    uvicorn.run(
-        'main:app',
-        host=cp.url,
-        port=cp.port,
-        reload=True
+@app.get("/items/{id}")
+def read_item(request: Request, id: str):
+    return templates.TemplateResponse(
+        "item.html",
+        context={
+            "request": request,
+            "id": id
+        }
     )
-
-
-def main():
-    port = os.environ.get('PORT') or "8080"
-    url = (len(sys.argv) == 2 and sys.argv[1]) or '0.0.0.0'
-    cp = ConnectionParams(
-        url=url,
-        port=int(port)
-    )
-    serve(cp)
-
-
-if __name__ == "__main__":
-    main()
