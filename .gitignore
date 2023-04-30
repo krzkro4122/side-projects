@@ -6,3 +6,5 @@
 *.lock
 *.bin
 .venv
+node_modules
+*-lock.json
