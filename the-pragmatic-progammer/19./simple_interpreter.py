@@ -6,34 +6,40 @@ def safe_list_get(l, idx, default):
 
 
 def interpret(string: str) -> list[str]:
-    i = 0
     parsed = []
     part = ""
     isInside = False
     isEscaped = False
 
-    while safe_list_get(string, i, False):
+    for i in range(len(string)):
         match string[i]:
+
             case '"':
                 if isInside:
                     if isEscaped:
-                        part += string[i]
+                        part += '"'
                     else:
-                        parsed.append(part)
-                        part = ""
-                        isInside = not isInside
-                else:
+                        if part:
+                            parsed.append(part)
+                            part = ""
+                if not isEscaped:
                     isInside = not isInside
+
+            case '\\':
+                if safe_list_get(string, i + 1, False) == '"':
+                    isEscaped = True
+                    continue
 
             case other:
                 if isInside:
                     part += other
-        i += 1
+
+        isEscaped = False
     return parsed
 
 
 def main():
-    string = '"Lol",lele "Lawl\""'
+    string = r'"Lol",lele "Lawl\"\" "    \\'
     parsed_string_parts = interpret(string)
     print(parsed_string_parts)
 
