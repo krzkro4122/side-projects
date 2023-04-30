@@ -1,6 +1,5 @@
 import http_requests
 import asyncio
-import time
 import sys
 
 
