@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-web-to-nginx
+spec:
+  selector:
+    matchLabels:
+      app: k8s-web-to-nginx
+  template:
+    metadata:
+      labels:
+        app: k8s-web-to-nginx
+    spec:
+      containers:
+        - name: k8s-web-to-nginx
+          image: layor/k8s-web-to-nginx:6.9.0
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 3000
+  replicas: 3
