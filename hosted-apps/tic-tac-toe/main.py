@@ -7,3 +7,6 @@ app = Flask(__name__)
 def hello_world():
     url_for('static', filename='style.css')
     return render_template('index.html')
+
+
+app.run(host='0.0.0.0')
