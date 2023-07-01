@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import uj from "./assets/uj.svg";
-import f5 from "./assets/f5.svg";
+import euroloop from "./assets/euroloop.png";
 import "./SlidingText.css";
 
 function SlidingText() {
@@ -30,8 +30,8 @@ function SlidingText() {
         <div className="title">
           Krzysztof Król <span className="age">({age})</span>
           <br />
-          <span className="fancy">Software Developer</span>
-          <img id="f5" src={f5} alt="F5 Networks logo" />
+          <span className="fancy">Software Engineer</span>
+          <img id="euroloop" src={euroloop} alt="Willber by Euroloop logo" />
         </div>
       </div>
       <div id="right-side" className="side">
