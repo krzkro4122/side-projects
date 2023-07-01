@@ -1,0 +1,53 @@
+.browser {
+    display: flex;
+    place-content: center;
+    height: calc(100% - 8rem);
+    flex-wrap: wrap;
+    padding: 4rem;
+}
+
+.browserCard {
+    padding: 1rem;
+    background-color: var(--bg-darker);
+    border-radius: 0.8rem;
+
+    width: 18rem;
+    aspect-ratio: 1 / 1.4;
+
+    margin: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.browserCard>a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    place-items: center;
+    color: var(--accent-color);
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 0.5rem;
+}
+
+.browserCardImage {
+    width: 18rem;
+    aspect-ratio: 1 / 1.6;
+    object-fit: contain;
+    height: 80%;
+}
+
+.browserCardLabel {
+    font-size: 2.3rem;
+    text-transform: uppercase;
+}
+
+.browserCard:hover {
+    transform: scale(1.05);
+}
+
+.browserCard:active {
+    opacity: 70%;
+}

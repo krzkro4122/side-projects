@@ -1,0 +1,21 @@
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    height: 100%;
+    padding-top: 1rem;
+    gap: 1rem;
+}
+
+.scoreCard {
+    padding: 1.5rem;
+    font-size: x-large;
+    outline: solid var(--accent-color);
+    color: var(--accent-color);
+    background-color: var(--bg-darker);
+    border-radius: 0.5rem;
+    list-style: none;
+    width: clamp(20rem, 40%, 60%);
+    display: flex;
+    justify-content: space-between;
+}
