@@ -27,7 +27,7 @@ function App() {
           subtitle={
             "A text-based image generator powered by OpenAI's DALL-E API"
           }
-          href={"https://fireship-dream-app.lm.r.appspot.com/"}
+          href={"http://67.207.78.202:5004/"}
           stack={["Frontend: Vanilla JS", "Backend: Express.js"]}
         />
         <Card
@@ -51,7 +51,7 @@ function App() {
           subtitle={
             'A service-oriented application that communicates with OpenAI to provide a great chatBot experience.'
           }
-          href={"https://tic-tac-toe-382117.lm.r.appspot.com/"}
+          href={"http://67.207.78.202:5173/"}
           stack={["Frontend: React.js", "Backend: FastApi", "Service: Flask", "Db: PostgreSQL"]}
         />
         <Card
@@ -59,7 +59,7 @@ function App() {
           subtitle={
             'A web-application oriented that gamifies courses by keeping tabs on every users\' and teams\' score.'
           }
-          href={"https://tic-tac-toe-382117.lm.r.appspot.com/"}
+          href={"http://67.207.78.202/"}
           stack={["Frontend: React.ts", "Backend: Nginx"]}
         />
       </div>
