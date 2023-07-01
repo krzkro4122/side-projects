@@ -1,3 +1,7 @@
+html {
+    height: 100%;
+}
+
 body {
     /* Global stuff */
     background-color: #1f2127;
@@ -7,6 +11,10 @@ body {
     font-size: 20px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: white;
+    height: calc(100% - 7% - 4rem);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 footer {
@@ -28,20 +36,21 @@ button {
     border-radius: 5px;
 }
 
-input {
+#author {
+    pointer-events: all;
     transform: scale(1.5);
     color: white;
     background-color: black;
-    padding: 2px;
-    margin-left: 25px;
+    padding: 0.2rem;
     border-color: gold;
-    border-width: 0.5px;
+    outline: gold 0.1rem solid;
+    border-width: 1px;
     border-radius: 5px;
 }
 
-form {
-    text-align: center;
-    margin-left: 6%;
+a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5)
 }
 
 p {
@@ -136,7 +145,7 @@ p {
 }
 
 #hint {
-    margin-top: 6%;
+    margin-top: 6rem;
     text-align: center;
     font-size: large;
     opacity: 60%;
