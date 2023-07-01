@@ -9,7 +9,7 @@ app.get("/", async (request, response) => {
   response.send(await readFile("./index.html", "utf-8"));
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () =>
   console.log(`App available on http://localhost:${PORT}`)
 );

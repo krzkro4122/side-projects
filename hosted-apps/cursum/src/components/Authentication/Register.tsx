@@ -113,14 +113,14 @@ function register() {
             <button id="submit" className="button" type="submit">
               Sign up
             </button>
-            <Link id="re-route" className="button" to="/cursum/login">
+            <Link id="re-route" className="button" to="/login">
               Cancel
             </Link>
           </div>
         </form>
       </div>
     </div>,
-    "/cursum/"
+    "/"
   );
 }
 
