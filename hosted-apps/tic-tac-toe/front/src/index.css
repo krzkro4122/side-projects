@@ -23,6 +23,10 @@ body {
   place-items: center;
 }
 
+#root {
+  height: 100%;
+}
+
 .square:hover,
 .historyEntry:hover {
   transform: scale(1.05);
@@ -83,8 +87,10 @@ ul {
   display: flex;
   flex-direction: row;
   width: 100vw;
+  height: calc(100vh - 10rem);
   padding-top: 10rem;
   justify-content: space-evenly;
+  overflow-x: hidden;
 }
 
 .game-info {
