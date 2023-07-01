@@ -57,7 +57,7 @@ function App() {
         <Card
           title={"Cursum"}
           subtitle={
-            'A web-application oriented that gamifies courses by keeping tabs on every users\' and teams\' score.'
+            'A web-application that gamifies learning courses by keeping tabs on every users\' and leagues\' score.'
           }
           href={"http://67.207.78.202/"}
           stack={["Frontend: React.ts", "Backend: Nginx"]}
