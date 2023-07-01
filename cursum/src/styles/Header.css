@@ -1,0 +1,68 @@
+.header {
+    background-color: var(--bg-darker);
+
+    font-size: x-large;
+    height: 2rem;
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    outline: solid var(--accent-color);
+
+    display: flex;
+    justify-content: space-around;
+    place-content: center;
+    /* position: fixed; */
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 50%;
+}
+
+.userInfo {
+    flex: 0.45;
+    display: flex;
+    gap: 3rem;
+}
+
+/* #Layer_1,
+#logo {
+    color: wheat;
+    stroke: wheat;
+    fill: wheat;
+} */
+
+.email,
+.score {
+    font-size: x-large;
+    color: var(--accent-color);
+}
+
+.log-out {
+    border-radius: 0.5rem;
+    font-size: x-large;
+    color: var(--accent-color);
+    width: 6rem;
+}
+
+.log-out:hover {
+    transform: scale(1.1);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.navigation {
+    flex: 0.45;
+    display: flex;
+    gap: 3rem;
+}
+
+.link {
+    text-decoration: none;
+    color: var(--accent-color);
+}
+
+.link:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
+}

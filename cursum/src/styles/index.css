@@ -1,0 +1,67 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  background-color: #242424;
+  width: 100%;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --accent-color: gold;
+  --accent-color-low-sat: rgba(255, 215, 0, 0.3);
+  --bg-dark: #242424;
+  --bg-darker: #141414;
+  --bg-dark-high-sat: rgba(0, 0, 0, 0.6);
+  --bg-darker-low-sat: rgba(255, 255, 255, 0.4);
+  --bg-semi: rgba(255, 255, 255, 0.2);
+  --light: rgba(255, 255, 255, 0.87);
+
+  --card-width: clamp(1rem, 10vw, 3rem);
+  --radius: 0.5rem;
+
+  color: var(--light);
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: calc(100vh - 5rem);
+  /* Super Fancy! */
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--bg-darker);
+
+}
+
+body::-webkit-scrollbar-thumb {
+  width: 1rem;
+  background: black;
+  background: var(--accent-color);
+
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
