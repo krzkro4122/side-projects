@@ -35,7 +35,7 @@ function Task({
       setActiveTaskIndex(activeTaskIndex + 1);
     } else {
       scoreDiff = 1000;
-      navigate("/cursum");
+      navigate("/");
     }
     setUser({
       id: user!.id,

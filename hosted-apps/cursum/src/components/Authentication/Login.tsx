@@ -61,14 +61,14 @@ function Login() {
             <button id="submit" className="button" type="submit">
               Log in
             </button>
-            <Link id="re-route" className="button" to="/cursum/register">
+            <Link id="re-route" className="button" to="/register">
               Register
             </Link>
           </div>
         </form>
       </div>
     </div>,
-    "/cursum/"
+    "/"
   );
 }
 

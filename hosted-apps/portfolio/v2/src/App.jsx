@@ -35,7 +35,7 @@ function App() {
           subtitle={
             'A minigame breaking the conventional usage of the "slider" UI element'
           }
-          href={"https://regal-extension-379017.lm.r.appspot.com/"}
+          href={"http://67.207.78.202:5001/"}
           stack={["Frontend: Vanilla JS", "Backend: Express.js"]}
         />
         <Card
@@ -43,7 +43,7 @@ function App() {
           subtitle={
             'A classic tic-tac-toe game with interactive move-history'
           }
-          href={"https://tic-tac-toe-382117.lm.r.appspot.com/"}
+          href={"http://67.207.78.202:5000/"}
           stack={["Frontend: React.js", "Backend: Flask"]}
         />
         <Card
