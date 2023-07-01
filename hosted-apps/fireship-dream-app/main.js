@@ -10,7 +10,7 @@ form.addEventListener("submit", async (event) => {
 
   try {
     const response = await fetch(
-      `https://fireship-dream-app.lm.r.appspot.com/dream`,
+      `/dream`,
       {
         method: "POST",
         headers: {
