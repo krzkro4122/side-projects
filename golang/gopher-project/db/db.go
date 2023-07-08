@@ -11,9 +11,10 @@ var Db *gorm.DB = configure_db()
 func configure_db() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("./db/db.db"), &gorm.Config{})
 	if err != nil {
-		panic("failed to connect database")
+		panic("Failed to connect to the database!")
 	}
 	db.Table("products")
 	db.Table("cart_members")
 	return db
 }
+

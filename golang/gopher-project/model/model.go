@@ -33,3 +33,4 @@ type IPurchase struct {
 	Payment  IPayment  `json:"payment"`
 	Products []Product `json:"products"`
 }
+

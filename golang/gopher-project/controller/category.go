@@ -2,13 +2,14 @@ package controller
 
 import (
 	"errors"
-	"net/http"
 	"strconv"
+	"net/http"
+
+	"gorm.io/gorm"
+	"github.com/labstack/echo/v4"
 
 	"github.com/krzkro4122/echogogorm/db"
 	"github.com/krzkro4122/echogogorm/model"
-	"github.com/labstack/echo/v4"
-	"gorm.io/gorm"
 )
 
 func get_category(id string) (model.Category, error) {
@@ -126,3 +127,4 @@ func DeleteCategory(c echo.Context) error {
 	db.Db.Delete(&category)
 	return c.JSON(http.StatusOK, category)
 }
+
