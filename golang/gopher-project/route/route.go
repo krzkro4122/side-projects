@@ -31,13 +31,13 @@ func define_endpoints(e *echo.Echo) {
 	e.POST("/cart/buy", controller.BuyCart)
 }
 
-func Serve(port string, host string) {
+func Serve(address string) {
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 	define_endpoints(e)
-	e.Logger.Fatal(e.Start(fmt.Sprintf("%s:%s", host, port)))
+	e.Logger.Fatal(e.Start(fmt.Sprintf("%s", address)))
 }
 
