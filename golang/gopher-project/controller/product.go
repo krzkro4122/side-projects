@@ -2,13 +2,14 @@ package controller
 
 import (
 	"errors"
-	"net/http"
 	"strconv"
+	"net/http"
+	
+	"gorm.io/gorm"
+	"github.com/labstack/echo/v4"
 
 	"github.com/krzkro4122/echogogorm/db"
 	"github.com/krzkro4122/echogogorm/model"
-	"github.com/labstack/echo/v4"
-	"gorm.io/gorm"
 )
 
 func get_product(id string) (model.Product, error) {
@@ -120,3 +121,4 @@ func DeleteProduct(c echo.Context) error {
 	db.Db.Delete(&product)
 	return c.JSON(http.StatusOK, product)
 }
+

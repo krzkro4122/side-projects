@@ -7,3 +7,4 @@ import (
 func Index(c echo.Context) error {
 	return c.File("./public/index.html")
 }
+
