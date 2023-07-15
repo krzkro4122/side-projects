@@ -1,4 +1,4 @@
-module github.com/krzkro4122/echogogorm
+module github.com/krzkro4122/gopher
 
 go 1.20
 
@@ -35,4 +35,4 @@ require (
 	golang.org/x/time v0.3.0 // indirect
 )
 
-replace github.com/krzkro4122/echogogorm v0.0.0 => ./
+replace github.com/krzkro4122/gopher v0.0.0 => ./
