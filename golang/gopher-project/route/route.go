@@ -3,7 +3,7 @@ package route
 import (
 	"fmt"
 
-	"github.com/krzkro4122/echogogorm/controller"
+	"github.com/krzkro4122/gopher/controller"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/echo/v4"
 )
@@ -15,7 +15,7 @@ func define_endpoints(e *echo.Echo) {
 
 	// Authentication
 	e.POST("/login", controller.Login)
-	// e.POST("/register", controller.Register)
+	e.POST("/register", controller.Register)
 }
 
 func Serve(address string) {

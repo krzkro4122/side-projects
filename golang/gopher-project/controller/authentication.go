@@ -13,8 +13,8 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/lestrrat-go/jwx/jwk"
-	"github.com/krzkro4122/echogogorm/db"
-	"github.com/krzkro4122/echogogorm/model"
+	"github.com/krzkro4122/gopher/db"
+	"github.com/krzkro4122/gopher/model"
 )
 
 type jwtCustomClaims struct {
@@ -167,13 +167,24 @@ func Register(c echo.Context) error {
 		return c.JSON(
 			http.StatusExpectationFailed,
 			map[string]string{
-				"error": "Password processing failed!",
+				"error": "Password hashing failed!",
 			},
 		)
 	}
-	credentials := &model.Credentials{
-		UserID: ,	
+	
+	new_user := model.User{
+		Username: body.Username,
+		Email: body.Email,
+		FirstName: body.FirstName,
+		LastName:  body.LastName,
 	}
+	db.Db.Create(&new_user)
+
+	credentials := &model.Credentials{
+		UserID: new_user.ID,
+		Hash: passwordHash,	
+	}
+	db.Db.Create(&credentials)
 	
 	claims := &jwtCustomClaims{
 		user.Username,

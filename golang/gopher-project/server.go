@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/krzkro4122/echogogorm/route"
+	"github.com/krzkro4122/gopher/route"
 )
 
 func get_env(env, def string) string {
