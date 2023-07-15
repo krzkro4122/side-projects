@@ -185,4 +185,5 @@ func Register(c echo.Context) error {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims) 
 
-	return c.JSON(http.StatusOK, token) }
+	return c.JSON(http.StatusOK, token) 
+}
