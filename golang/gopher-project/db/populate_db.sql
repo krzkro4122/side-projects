@@ -1,6 +1,7 @@
 DROP TABLE Products;
 DROP TABLE Categories;
 
+
 CREATE TABLE Products (
     id INTEGER PRIMARY KEY,
     created_at TIMESTAMP,

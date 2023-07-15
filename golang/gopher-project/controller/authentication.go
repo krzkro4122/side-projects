@@ -1,17 +1,27 @@
 package controller
 
 import (
+	"fmt"
+	"time"
 	"errors"
-	"strconv"
+	"context"
 	"net/http"
 
 	"gorm.io/gorm"
-	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
+	"github.com/labstack/echo/v4"
 
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/lestrrat-go/jwx/jwk"
 	"github.com/krzkro4122/echogogorm/db"
 	"github.com/krzkro4122/echogogorm/model"
 )
+
+type jwtCustomClaims struct {
+	Name  string `json:"name"`
+	Admin bool   `json:"admin"`
+	jwt.RegisteredClaims
+}
 
 func hashPassword(password string) (string, error) {
     bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
@@ -45,9 +55,9 @@ func get_user_by_email(email string) (model.User, error) {
 	return user, nil
 }
 
-func get_credentials(id string) (model.Credentials, error) {
+func get_credentials_by_user_id(userID int) (model.Credentials, error) {
 	var credentials model.Credentials
-	if err := db.Db.First(&credentials, id).Error; err != nil {
+	if err := db.Db.First(&credentials, userID).Error; err != nil {
 		// Return a 404 response if the product does not exist
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return credentials, err
@@ -56,21 +66,30 @@ func get_credentials(id string) (model.Credentials, error) {
 	return credentials, nil
 }
 
-func generate_token(id string) model.Token {
-		
-}
+func getKey(token *jwt.Token) (interface{}, error) {
+	keySet, err := jwk.Fetch(context.Background(), "https://www.googleapis.com/oauth2/v3/certs")
+	if err != nil {
+		return nil, err
+	}
 
-// func filter(products []model.Product, cond func(product model.Product) bool) []model.Product {
-//
-// 	result := []model.Product{}
-//
-// 	for _, product := range products {
-// 		if cond(product) {
-// 			result = append(result, product)
-// 		}
-// 	}
-// 	return result
-// }
+	keyID, ok := token.Header["kid"].(string)
+	if !ok {
+		return nil, errors.New("expecting JWT header to have a key ID in the kid field")
+	}
+
+	key, found := keySet.LookupKeyID(keyID)
+
+	if !found {
+		return nil, fmt.Errorf("unable to find key %q", keyID)
+	}
+
+	var pubkey interface{}
+	if err := key.Raw(&pubkey); err != nil {
+		return nil, fmt.Errorf("Unable to get the public key. Error: %s", err.Error())
+	}
+
+	return pubkey, nil
+}
 
 func Login(c echo.Context) error {
 
@@ -86,84 +105,84 @@ func Login(c echo.Context) error {
 		return c.JSON(
 			http.StatusNotFound,
 			map[string]string{
-				"error": "User with Email: " + body.Email + " not found",
+				"error": "User with email: " + body.Email + " not found",
 			},
 		)
 	}
 
-	token := 
+	credentials, err := get_credentials_by_user_id(user.ID)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return c.JSON(
+			http.StatusNotFound,
+			map[string]string{
+				"error": "User with email: " + body.Email + " not registered",
+			},
+		)
+	}
+
+	validPassword := checkPasswordHash(body.Password, credentials.Hash)
+	if !validPassword {
+		return c.JSON(
+			http.StatusUnauthorized,
+			map[string]string{
+				"error": "Bad credentials",
+			},
+		)
+	}
+
+	claims := &jwtCustomClaims{
+		user.Username,
+		true,
+		jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims) 
 
 	return c.JSON(http.StatusOK, token)
 }
 
-func ReadAllCategories(c echo.Context) error {
-	var categories []model.Category
-	db.Db.Find(&categories)
-	return c.JSON(http.StatusOK, categories)
-}
+func Register(c echo.Context) error {
 
-func UpdateCategory(c echo.Context) error {
-	id := c.Param("id")
-	var body model.Category
+	var body model.IRegister
 
 	// Bind the JSON data from the request body to your struct
 	if err := c.Bind(&body); err != nil {
 		return err
 	}
 
-	category, err := get_category(id)
-	if errors.Is(err, gorm.ErrRecordNotFound) {
-		return c.JSON(
-			http.StatusNotFound,
-			map[string]string{
-				"error": "Category with ID: " + id + " not found",
-			},
-		)
-	}
-
-	db.Db.Model(&category).Update("Name", body.Name)
-	return c.JSON(http.StatusOK, category)
-}
-
-func CreateCategory(c echo.Context) error {
-	var body model.Category
-
-	// Bind the JSON data from the request body to your struct
-	if err := c.Bind(&body); err != nil {
-		return err
-	}
-
-	_, err := get_category(strconv.Itoa(body.ID))
+	user, err := get_user_by_email(body.Email)
 	if !errors.Is(err, gorm.ErrRecordNotFound) {
 		return c.JSON(
 			http.StatusNotFound,
 			map[string]string{
-				"error": "Category with ID: " + strconv.Itoa(body.ID) + " already exists",
+				"error": "User with email: " + body.Email + " already exists!",
 			},
 		)
 	}
 
-	var category = model.Category{
-		ID:   body.ID,
-		Name: body.Name,
-	}
-	db.Db.Create(&category)
-	return c.JSON(http.StatusOK, category)
-}
-
-func DeleteCategory(c echo.Context) error {
-	id := c.Param("id")
-
-	category, err := get_category(id)
-	if errors.Is(err, gorm.ErrRecordNotFound) {
+	passwordHash, err := hashPassword(body.Password)
+	if err != nil {	
 		return c.JSON(
-			http.StatusNotFound,
+			http.StatusExpectationFailed,
 			map[string]string{
-				"error": "Category with ID: " + id + " not found",
+				"error": "Password processing failed!",
 			},
 		)
 	}
-	db.Db.Delete(&category)
-	return c.JSON(http.StatusOK, category)
-}
+	credentials := &model.Credentials{
+		UserID: ,	
+	}
+	
+	claims := &jwtCustomClaims{
+		user.Username,
+		true,
+		jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
+		},
+	}
 
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims) 
+
+	return c.JSON(http.StatusOK, token) }
