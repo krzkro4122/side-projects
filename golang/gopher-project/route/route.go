@@ -15,7 +15,7 @@ func define_endpoints(e *echo.Echo) {
 
 	// Authentication
 	e.POST("/login", controller.Login)
-	e.POST("/register", controller.Register)
+	// e.POST("/register", controller.Register)
 
 	// Product
 	// e.GET("/product/:id", controller.ReadProduct)

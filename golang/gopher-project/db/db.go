@@ -3,6 +3,8 @@ package db
 import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	"github.com/krzkro4122/echogogorm/model"
 )
 
 // Connect to db with gorm
@@ -13,8 +15,9 @@ func configure_db() *gorm.DB {
 	if err != nil {
 		panic("Failed to connect to the database!")
 	}
-	db.Table("products")
-	db.Table("cart_members")
+	db.Table("users")
+	db.Table("credentials")
+	db.AutoMigrate(&model.User{}, &model.Credentials{})
 	return db
 }
 
