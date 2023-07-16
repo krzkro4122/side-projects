@@ -46,7 +46,7 @@ func get_user(id string) (model.User, error) {
 
 func get_user_by_email(email string) (model.User, error) {
 	var user model.User
-	if err := db.Db.First(&user, email).Error; err != nil {
+	if err := db.Db.Where("email = ?", email).First(&user).Error; err != nil {
 		// Return a 404 response if the product does not exist
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return user, err
@@ -57,7 +57,7 @@ func get_user_by_email(email string) (model.User, error) {
 
 func get_credentials_by_user_id(userID int) (model.Credentials, error) {
 	var credentials model.Credentials
-	if err := db.Db.First(&credentials, userID).Error; err != nil {
+	if err := db.Db.Where("user_id = ?", userID).First(&credentials).Error; err != nil {
 		// Return a 404 response if the product does not exist
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return credentials, err
