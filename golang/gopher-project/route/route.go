@@ -2,10 +2,12 @@ package route
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
 
 	"github.com/krzkro4122/gopher/controller"
-	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func define_endpoints(e *echo.Echo) {
@@ -26,5 +28,10 @@ func Serve(address string) {
 	}))
 	define_endpoints(e)
 	e.Logger.Fatal(e.Start(fmt.Sprintf("%s", address)))
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	go func() {
+		e.Close()
+	}()
 }
 
