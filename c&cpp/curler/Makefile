@@ -1,2 +1,2 @@
-all: 
-	gcc -o main.o main.c && ./main.o
+cli: 
+	gcc -o build/cli.o cli.c
