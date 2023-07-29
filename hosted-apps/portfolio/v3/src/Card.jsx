@@ -2,7 +2,7 @@ import "./Card.css";
 
 function Card({ title, subtitle, href, stack }) {
   return (
-    <a href={href} target="_blank">
+    <a href={href} className="card-anchor" target="_blank">
       <div className="card">
         <div className="card-content">
           <main>
