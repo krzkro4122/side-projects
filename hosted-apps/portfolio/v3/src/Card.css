@@ -1,0 +1,103 @@
+:root {
+    --border: white;
+    --g1: rgb(39, 16, 65);
+    --g2: rgb(68, 17, 115);
+    --g3: rgb(105, 71, 244);
+}
+
+.card {
+    aspect-ratio: 1 / 1.6;
+    border: 0.5vmin solid var(--border);
+    border-radius: 2vmin;
+    cursor: pointer;
+    position: relative;
+    width: 18vmin;
+    margin: 1vmin;
+    cursor: crosshair;
+}
+
+.halfcard {
+    aspect-ratio: 1 / 0.75;
+    border: 0.5vmin solid var(--border);
+    border-radius: 2vmin;
+    cursor: pointer;
+    position: relative;
+    width: 18vmin;
+    margin: 1vmin;
+    cursor: help;
+}
+
+.card:hover:before,
+.halfcard:hover:before {
+    background-position: 100% 100%;
+    transform: scale(1.08, 1.08);
+}
+
+.card::before,
+.halfcard::before {
+    background: linear-gradient(130deg,
+            transparent 0% 33%,
+            var(--g1) 66%,
+            var(--g2) 83.5%,
+            var(--g3) 100%);
+    border-radius: 2vmin;
+    background-position: 0% 0%;
+    background-size: 300% 300%;
+    content: "";
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    transition: background-position 400ms ease, transform 350ms ease;
+    width: 100%;
+    z-index: 1;
+}
+
+.card-content {
+    background: radial-gradient(rgba(255, 255, 255, 0.15) 10%,
+            transparent 8%);
+    background-position: 0% 0%;
+    background-size: 3vmin 3vmin;
+    height: calc(100% - 3vmin);
+    width: calc(100% - 3vmin);
+    padding: 1.5vmin;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background-position 400ms ease;
+    z-index: 2;
+}
+
+.card:hover>.card-content,
+.halfcard:hover>.card-content {
+    background-position: -10% 0%;
+}
+
+.card-title,
+.card-subtitle,
+.stack {
+    color: white;
+    font-family: "Anek Latin", sans-serif;
+    font-weight: 400;
+    margin: 0px;
+}
+
+.card-title {
+    font-size: 2.5vmin;
+    font-weight: bold;
+}
+
+.card-subtitle {
+    font-size: 1.5vmin;
+    margin-top: 1vmin;
+}
+
+.stack {
+    font-size: 1.5vmin;
+    opacity: 65%;
+}
+
+a {
+    text-decoration: none;
+}
