@@ -5,26 +5,31 @@
     --g3: rgb(105, 71, 244);
 }
 
+:root::-webkit-scrollbar{
+    display: none;
+}
+
 .card {
     aspect-ratio: 1 / 1.6;
-    border: 0.5vmin solid var(--border);
+    border: 0.35vmin solid var(--border);
     border-radius: 2vmin;
     cursor: pointer;
     position: relative;
-    width: 18vmin;
+    width: min(24vmin, 20vh);
     margin: 1vmin;
     cursor: crosshair;
 }
 
 .halfcard {
     aspect-ratio: 1 / 0.75;
-    border: 0.5vmin solid var(--border);
+    border: 0.35vmin solid var(--border);
     border-radius: 2vmin;
     cursor: pointer;
     position: relative;
-    width: 18vmin;
+    width: min(24vmin, 20vh);
     margin: 1vmin;
     cursor: help;
+    flex: 0 0 33.33333%;
 }
 
 .card:hover:before,
@@ -83,13 +88,20 @@
     margin: 0px;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .card-title {
-    font-size: 2.5vmin;
+    font-size: 2.8vmin;
     font-weight: bold;
+    margin-bottom: 0.8vmin;
 }
 
 .card-subtitle {
-    font-size: 1.5vmin;
+    font-size: 1.8vmin;
     margin-top: 1vmin;
 }
 

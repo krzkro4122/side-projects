@@ -2,19 +2,25 @@
   margin: 0;
   padding: 0;
 }
+
 #main {
-  display: flex;
+  display: grid;
+  height: calc(100vh - 10vmin);
+  width: 100vw;
+  grid-template-rows: 50% 50% auto;
+  gap: 10vmin;
+}
+
+#profileContainer {
+  z-index: 5;
+  display: grid;
+  place-content: center;
 }
 
 #profile {
   z-index: 3;
 
-  position: absolute;
-  left: 50%;
-  top: 5vh;
-  transform: translate(-50%, 0);
-
-  height: 30vh;
+  height: max(35vmin, 30vh);
 
   border-radius: 100%;
   border-style: solid;
@@ -23,13 +29,19 @@
   pointer-events: none;
 }
 
-
 #cards {
-  top: 60vh;
-  position: absolute;
+  z-index: 5;
+
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  width: 100%;
-  z-index: 5;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-items: center;
+  /* align-content: center; */
+}
+
+#start {
+  width: 100vw;
+  height: 100vh;
 }
