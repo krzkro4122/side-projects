@@ -38,7 +38,7 @@ function SlidingText() {
         <div className="title">
           Krzysztof Król <span className="age">({age})</span>
           <br />
-          <span className="fancy">Working Student</span>
+          <span className="fancy">Master's Student</span>
         </div>
         <img id="university" src={university} alt="Jagiellonian University logo" />
       </div>

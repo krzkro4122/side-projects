@@ -1,14 +1,11 @@
 import "./Card.css";
 
-function HalfCard({ title, subtitle, href }) {
+function HalfCard({ src, alt, href }) {
   return (
     <a href={href} target="_blank">
-      <div className="halfcard">
-        <div className="card-content">
-          <main>
-            <h3 className="card-title">{title}</h3>
-            <h4 className="card-subtitle">{subtitle}</h4>
-          </main>
+      <div className="card halfcard">
+        <div className="card-content halfcard-content">
+          <img style={{width: 11 + 'vmin', opacity: '90%'}} src={src} alt={alt} />
         </div>
       </div>
     </a>
