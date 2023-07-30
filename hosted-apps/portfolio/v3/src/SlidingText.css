@@ -27,21 +27,25 @@ body {
 	position: absolute;
 
 	pointer-events: none;
+	z-index: 1;
 }
 
 .title {
 	font-size: 5vmin;
 	font-family: 'Red Hat Text', sans-serif;
 	color: white;
+	position: absolute;
 	margin: 0px 10vw;
 	margin-bottom: 2vmin;
 	width: 80vw;
 	text-align: center;
+	display: grid;
+	place-content: center;
 }
 
 .side .fancy {
 	font-size: 1.7em;
-	line-height: 1.1em;
+	line-height: 1em;
 }
 
 #left-side {
@@ -92,4 +96,22 @@ body {
 
 .age {
 	opacity: 0.4;
+}
+
+.timer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.dampner {
+	display: flex;
+	align-content: center;
+	justify-content: space-evenly;
+	width: 100%;
+}
+
+.seconds {
+	/* width: 10%; */
+	font-size: 3vmin;
 }

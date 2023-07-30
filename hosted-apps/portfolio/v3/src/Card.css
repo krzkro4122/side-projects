@@ -12,6 +12,7 @@
 
 .card {
 	aspect-ratio: 1.6 / 1;
+	background: rgb(54, 54, 54);
 	border: 0.35vmin solid var(--border);
 	border-radius: 2vmin;
 	cursor: pointer;
@@ -97,17 +98,17 @@ main {
 }
 
 .card-title {
-	font-size: 2.8vmin;
+	font-size: 3vmin;
 	font-weight: bold;
 }
 
 .card-subtitle {
-	font-size: 1.8vmin;
+	font-size: 1.9vmin;
 	margin-top: 1vmin;
 }
 
 .stack {
-	font-size: 1.5vmin;
+	font-size: 1.6vmin;
 	opacity: 65%;
 	display: flex;
 	justify-content: space-between;

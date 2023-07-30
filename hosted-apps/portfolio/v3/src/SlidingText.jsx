@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import university from "./assets/university.svg";
 import company from "./assets/company.png";
+import Timer from "./Timer";
 import "./SlidingText.css";
 
 function SlidingText() {
@@ -22,22 +23,18 @@ function SlidingText() {
     };
   }, []);
 
-  const age = new Date().getFullYear() - 1999;
-
   return (
     <div>
       <div id="left-side" style={mousePosition} className="side">
         <div className="title">
-          Krzysztof Król <span className="age">({age})</span>
-          <br />
+          <Timer />
           <span className="fancy">Software Engineer</span>
-          <img id="company" src={company} alt="Willbert by Euroloop logo" />
         </div>
+        <img id="company" src={company} alt="Willbert by Euroloop logo" />
       </div>
       <div id="right-side" className="side">
         <div className="title">
-          Krzysztof Król <span className="age">({age})</span>
-          <br />
+          <Timer />
           <span className="fancy">Master's Student</span>
         </div>
         <img id="university" src={university} alt="Jagiellonian University logo" />
