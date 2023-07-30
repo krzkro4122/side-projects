@@ -4,10 +4,9 @@ function Timer() {
   return (
     <div className="timer">
         <div className="dampner">
-        <span className="name">Krzysztof Król </span>
-        <span className="time year"><Age part="year" /></span>
+            <span className="name">Krzysztof Król&nbsp;</span>
+            <span className="time year"><Age part="year" /></span>
         </div>
-        {/* <span className="time seconds"><Age part="second" /></span> */}
     </div>
   );
 }
