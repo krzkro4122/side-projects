@@ -3,8 +3,10 @@
 	padding: 0;
 }
 
-html {
+#start {
 	overflow-y: scroll;
+	width: 100vw;
+	height: 100vh;
 }
 
 #main {
@@ -35,7 +37,7 @@ html {
 }
 
 #cards {
-	z-index: 5;
+	z-index: 6;
 
 	display: grid;
 	grid-template-columns: auto auto;
@@ -47,9 +49,4 @@ html {
 #halfcards {
 	display: grid;
 	grid-template-columns: auto auto;
-}
-
-#start {
-	width: 100vw;
-	height: 100vh;
 }
