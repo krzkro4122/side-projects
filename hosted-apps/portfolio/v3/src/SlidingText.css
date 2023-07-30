@@ -1,95 +1,95 @@
 :root {
-    --dark: #121212;
-    --bg-color: #242424;
+	--dark: #121212;
+	--bg-color: #242424;
 
-    /* Terminal colors */
-    --left-bg-color: #242424;
-    --left-fancy: #70CD00;
+	/* Terminal colors */
+	--left-bg-color: #242424;
+	--left-fancy: #70CD00;
 
-    /* UJ colors */
-    --right-bg-color: #113967;
-    --right-fancy: #fbce01;
+	/* UJ colors */
+	--right-bg-color: #113967;
+	--right-fancy: #fbce01;
 }
 
 body {
-    background-color: var(--bg-color);
+	background-color: var(--bg-color);
 }
 
 .side {
-    height: 100vh;
-    width: 100%;
+	height: 100%;
+	width: 100%;
 
-    display: grid;
-    /* grid-template-rows: min(110vmin, 110%) auto; */
-    align-items: center;
+	display: grid;
+	/* grid-template-rows: min(90vmin, 90%) auto; */
+	align-items: center;
 
-    overflow: hidden;
-    position: absolute;
+	overflow: hidden;
+	position: absolute;
 
-    pointer-events: none;
+	pointer-events: none;
 }
 
 .title {
-    font-size: 5vmin;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color: white;
-    margin: 0px 10vw;
-    margin-bottom: 2vmin;
-    width: 80vw;
-    text-align: center;
+	font-size: 5vmin;
+	font-family: 'Red Hat Text', sans-serif;
+	color: white;
+	margin: 0px 10vw;
+	margin-bottom: 2vmin;
+	width: 80vw;
+	text-align: center;
 }
 
 .side .fancy {
-    font-size: 1.3em;
-    line-height: 1.1em;
+	font-size: 1.7em;
+	line-height: 1.1em;
 }
 
 #left-side {
-    background-color: var(--left-bg-color);
-    z-index: 2;
+	background-color: var(--left-bg-color);
+	z-index: 2;
 }
 
 #left-side .title {
-    color: white;
+	color: white;
 }
 
 #left-side .fancy {
-    color: var(--left-fancy);
-    font-family: "Lucida Console", Courier, monospace;
+	color: var(--left-fancy);
+	font-family: 'Handjet', cursive;
 }
 
 #company {
-    position: absolute;
-    z-index: 3;
-    left: 5vmin;
-    top: 7vmin;
-    height: 5vmin;
-    padding-top: 1rem;
-    /* width: 5vh; */
+	position: absolute;
+	z-index: 3;
+	left: 5vmin;
+	top: 7vmin;
+	height: 5vmin;
+	padding-top: 1rem;
+	/* width: 5vh; */
 }
 
 #right-side {
-    background-color: var(--right-bg-color);
-    z-index: 1;
+	background-color: var(--right-bg-color);
+	z-index: 1;
 }
 
 #right-side .title {
-    color: white;
+	color: white;
 }
 
 #right-side .fancy {
-    color: var(--right-fancy);
-    font-family: Georgia, 'Times New Roman', Times, serif;
+	color: var(--right-fancy);
+	font-family: 'Satisfy', cursive;
 }
 
 #university {
-    position: absolute;
-    z-index: 3;
-    width: 6vmin;
-    right: 10vmin;
-    top: 6vmin;
+	position: absolute;
+	z-index: 3;
+	width: 6vmin;
+	right: 10vmin;
+	top: 6vmin;
 }
 
 .age {
-    opacity: 0.4;
+	opacity: 0.4;
 }

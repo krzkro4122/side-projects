@@ -1,47 +1,55 @@
 * {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	overflow-y: scroll;
 }
 
 #main {
-  display: grid;
-  height: calc(100vh - 10vmin);
-  width: 100vw;
-  grid-template-rows: 50% 50% auto;
-  gap: 10vmin;
+	display: grid;
+	height: 100vh;
+	width: 100vw;
+	row-gap: 10vmin;
+	grid-template-rows: 50% calc(50% - 10vmin);
 }
 
 #profileContainer {
-  z-index: 5;
-  display: grid;
-  place-content: center;
+	z-index: 5;
+	height: 100%;
+	display: grid;
+	place-content: center;
 }
 
 #profile {
-  z-index: 3;
+	z-index: 3;
 
-  height: max(35vmin, 30vh);
+	height: max(30vmin, 30vh);
 
-  border-radius: 100%;
-  border-style: solid;
-  border-color: white;
+	border-radius: 100%;
+	border-style: solid;
+	border-color: white;
 
-  pointer-events: none;
+	pointer-events: none;
 }
 
 #cards {
-  z-index: 5;
+	z-index: 5;
 
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: auto auto;
 
-  justify-content: center;
-  align-items: center;
-  /* align-content: center; */
+	justify-items: center;
+	justify-content: center;
+}
+
+#halfcards {
+	display: grid;
+	grid-template-columns: auto auto;
 }
 
 #start {
-  width: 100vw;
-  height: 100vh;
+	width: 100vw;
+	height: 100vh;
 }
