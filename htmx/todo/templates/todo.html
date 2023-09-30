@@ -1,0 +1,14 @@
+{% for todo in todos %}
+<div class="flex items-center gap-2">
+    <div
+        class="justify-between alert p-3 pl-4 h-12 border-gray-500 font-bold font-mono w-52"
+    >
+        {{ todo.index }}. {{ todo.title }}
+    </div>
+
+    <button
+        class="btn btn-error btn-outline btn-sm"
+        hx-delete="/todo/{{ todo.index }}"
+    >x</button>
+</div>
+{% endfor %}
