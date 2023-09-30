@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form id="form" hx-post="/todo" hx-target="#todos" hx-swap="innerHTML" hx-indicator=".htmx-indicator"
+    class="h-screen grid place-content-center gap-2">
+    <h1 class="indicator font-bold text-lg">TODOs<img src="assets/todo.svg" alt="todo icon"></h1>
+    {% block input %}{% endblock %}
+
+
+    <div hx-get="/todo" hx-trigger="load" id="todos" class="grid gap-1"></span></div>
+</form>
+</div>
+{% endblock %}

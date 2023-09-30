@@ -1,2 +1,2 @@
 run_locally:
-	.venv/bin/uvicorn main:app --reload
+	.venv/bin/uvicorn src.main:app --reload
