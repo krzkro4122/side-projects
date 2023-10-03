@@ -1,11 +1,11 @@
 {% for todo in todos %}
 <div class="flex items-center gap-2">
     <div
-        class="justify-between overflow-hidden hover:bg-gray-800 p-3 border-solid rounded-md border-2 pl-4 h-12 border-gray-700 font-bold font-mono w-52">
+        class="justify-between break-words max-w-4xl hover:bg-gray-800 p-3 border-solid rounded-md border-2 pl-4 border-gray-700 font-bold font-mono min-h-12">
         {{ todo.title }}
     </div>
 
-    <button class="btn btn-error btn-outline btn-sm lowercase leading-relaxed"
+    <button class="btn btn-error btn-outline btn-sm lowercase leading-relaxed pb-0.5"
         hx-delete="/todo/{{ todo.id }}">x</button>
 </div>
 {% endfor %}
