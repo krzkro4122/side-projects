@@ -1,9 +1,9 @@
 {% extends "dashboard.html" %}
 
 {% block input %}
-<div class="flex box-border items-center gap-2 w-full">
-    <input id="input" class="input input-bordered input-primary border-4 w-52 h-13" name="todo_title"
-        placeholder="Title" autocomplete="off" autofocus>
+<div class="flex box-border mb-1 items-center gap-2 max-w-4xl">
+    <span id="input" class="textarea p-2.5 px-4 textarea-bordered max-w-6xl textarea-xs textarea-primary prose border-2 text-lg" name="todo_title" role="textbox" contenteditable
+        placeholder="Title" autocomplete="off" autofocus></span>
     <button id="button" onclick="onClick()" class="btn btn-primary btn-sm">
         +
     </button>
@@ -13,14 +13,14 @@
 <script>
     const input = document.getElementById("input")
     input.addEventListener('input', (event) => {
-        if (!event.target.value) {
+        if (!event.target.textContent) {
             document.getElementById('button').disabled = true;
         } else {
             document.getElementById('button').disabled = false;
         }
     });
     input.addEventListener('focus', (event) => {
-        if (!event.target.value) {
+        if (!event.target.textContent) {
             document.getElementById('button').disabled = true;
         } else {
             document.getElementById('button').disabled = false;
@@ -30,10 +30,21 @@
     function onClick() {
         setTimeout(() => {
             const input = document.querySelector('#input');
-            input.value = "";
+            input.textContent = "";
+            input.focus();
         }, 1)
     }
 
-
+    input.addEventListener("keypress", function (e) {
+        if(e.which === 13 ) {
+            if (!e.shiftKey){
+                e.preventDefault();
+                var newEvent = document.createEvent("Event");
+                newEvent.initEvent("submit", false, true);
+                event.target.form.dispatchEvent(newEvent);
+                <!-- How to submit from a span? -->
+            }
+        }
+    });
 </script>
 {% endblock %}

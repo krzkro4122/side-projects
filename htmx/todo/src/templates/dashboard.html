@@ -1,13 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form id="form" hx-post="/todo" hx-target="#todos" hx-swap="innerHTML" hx-indicator=".htmx-indicator"
-    class="h-screen grid place-content-center gap-2">
-    <h1 class="indicator font-bold text-lg">TODOs<img src="assets/todo.svg" alt="todo icon"></h1>
+<form id="form"
+    hx-post="/todo"
+    hx-target="#todos"
+    hx-swap="innerHTML"
+    hx-indicator=".htmx-indicator"
+    class=" absolute left-20 top-20 gap-2"
+>
+    <h1 id="title" class="indicator font-bold mb-1 text-5xl shadow-white">TODOs<img class="ml-2 mt-1" src="assets/todo.svg" alt="todo icon"></h1>
     {% block input %}{% endblock %}
 
 
-    <div hx-get="/todo" hx-trigger="load" id="todos" class="grid gap-1"></span></div>
+    <div
+        hx-get="/todo"
+        hx-trigger="load"
+        id="todos"
+        class="grid gap-1"
+    ></span></div>
 </form>
-</div>
+
+<style>
+    #title {
+        font-family: 'Permanent Marker', cursive;
+    }
+</style>
 {% endblock %}
