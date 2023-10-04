@@ -6,9 +6,9 @@
     hx-target="#todos"
     hx-swap="innerHTML"
     hx-indicator=".htmx-indicator"
-    class=" absolute left-20 top-20 gap-2"
+    class="absolute gap-2 left-20 top-20"
 >
-    <h1 id="title" class="indicator font-bold mb-1 text-5xl shadow-white">TODOs<img class="ml-2 mt-1" src="assets/todo.svg" alt="todo icon"></h1>
+    <h1 id="title" class="mb-1 text-5xl font-bold indicator shadow-white">TODOs<img class="mt-1 ml-2" src="assets/todo.svg" alt="todo icon"></h1>
     {% block input %}{% endblock %}
 
 
@@ -16,7 +16,7 @@
         hx-get="/todo"
         hx-trigger="load"
         id="todos"
-        class="grid gap-1"
+        class="grid gap-1 mt-2"
     ></span></div>
 </form>
 
