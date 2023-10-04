@@ -2,8 +2,8 @@
 
 {% block input %}
 <div class="flex box-border mb-1 items-center gap-2 max-w-4xl">
-    <span id="input" class="textarea p-2.5 px-4 textarea-bordered max-w-6xl textarea-xs textarea-primary prose border-2 text-lg" name="todo_title" role="textbox" contenteditable
-        placeholder="Title" autocomplete="off" autofocus></span>
+    <textarea id="input" class="textarea p-2.5 px-4 textarea-bordered max-w-6xl textarea-xs textarea-primary prose border-2 text-lg" name="todo_title" role="textbox" contenteditable
+        placeholder="Title" autocomplete="off" autofocus></textarea>
     <button id="button" onclick="onClick()" class="btn btn-primary btn-sm">
         +
     </button>
@@ -13,14 +13,14 @@
 <script>
     const input = document.getElementById("input")
     input.addEventListener('input', (event) => {
-        if (!event.target.textContent) {
+        if (!event.target.value) {
             document.getElementById('button').disabled = true;
         } else {
             document.getElementById('button').disabled = false;
         }
     });
     input.addEventListener('focus', (event) => {
-        if (!event.target.textContent) {
+        if (!event.target.value) {
             document.getElementById('button').disabled = true;
         } else {
             document.getElementById('button').disabled = false;
@@ -30,7 +30,7 @@
     function onClick() {
         setTimeout(() => {
             const input = document.querySelector('#input');
-            input.textContent = "";
+            input.value = "";
             input.focus();
         }, 1)
     }
@@ -42,7 +42,6 @@
                 var newEvent = document.createEvent("Event");
                 newEvent.initEvent("submit", false, true);
                 event.target.form.dispatchEvent(newEvent);
-                <!-- How to submit from a span? -->
             }
         }
     });
