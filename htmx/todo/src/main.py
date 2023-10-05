@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.db.engine import get_db, init_models
+from src.db.engine import DATABASE_FILE_NAME, DATABASE_FILE_PATH, get_db, init_models
 
 from src.db.models import Todo
 
@@ -45,9 +45,11 @@ async def ok(request: Request, db_session: AsyncSession):
 
 @app.on_event("startup")
 async def startup():
-	if "db.db" not in os.listdir('.'):
+	if not os.path.exists(DATABASE_FILE_PATH+DATABASE_FILE_NAME):
 		print("Initializing the db...")
 		await init_models()
+	else:
+		print("Db already exists. Connecting...")
 
 
 @app.get(

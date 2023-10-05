@@ -6,5 +6,12 @@ serve:
 build:
 	docker build -t layor/todo .
 
+daemon:
+	docker run --rm -d --name todo -it -v /tmp/todo:/tmp/todo -p 8000:8000 layor/todo
+
 run:
-	docker run --rm -it -v $(current_dir):/app -p 8000:8000 layor/todo
+	docker run --rm --name todo -it -v /tmp/todo:/tmp/todo -p 8000:8000 layor/todo
+
+clean:
+	docker rm -f todo && \
+	docker run --rm --name todo -it -v /tmp/todo:/tmp/todo -p 8000:8000 layor/todo
