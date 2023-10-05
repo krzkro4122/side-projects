@@ -8,7 +8,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
-SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./db.db"
+DATABASE_FILE_PATH = "/tmp/todo/"
+DATABASE_FILE_NAME = "db.db"
+SQLALCHEMY_DATABASE_URL = f"sqlite+aiosqlite:///{DATABASE_FILE_PATH}{DATABASE_FILE_NAME}"
 
 engine = create_async_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
