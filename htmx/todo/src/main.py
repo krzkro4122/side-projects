@@ -1,6 +1,7 @@
 import os
-import uuid
+
 from typing import Annotated
+import uuid
 
 from fastapi import FastAPI, Request, Form
 from fastapi.params import Depends
@@ -9,7 +10,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.db.engine import DATABASE_FILE_NAME, DATABASE_FILE_PATH, get_db, init_models
+
+from src.db.engine import (
+	DATABASE_FILE_NAME,
+	DATABASE_FILE_PATH,
+	get_db,
+	init_models
+)
 
 from src.db.models import Todo
 
@@ -45,7 +52,7 @@ async def ok(request: Request, db_session: AsyncSession):
 
 @app.on_event("startup")
 async def startup():
-	if not os.path.exists(DATABASE_FILE_PATH+DATABASE_FILE_NAME):
+	if not os.path.exists(DATABASE_FILE_PATH + DATABASE_FILE_NAME):
 		print("Initializing the db...")
 		if not os.path.exists(DATABASE_FILE_PATH):
 			os.mkdir(DATABASE_FILE_PATH)
@@ -54,10 +61,7 @@ async def startup():
 		print("Db already exists. Connecting...")
 
 
-@app.get(
-	"/",
-	response_class=HTMLResponse,
-)
+@app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
 	return templates.TemplateResponse(
 		"input.html",
@@ -67,9 +71,7 @@ async def root(request: Request):
 	)
 
 
-@app.get("/todo",
-	response_class=HTMLResponse,
-)
+@app.get("/todo", response_class=HTMLResponse)
 async def get_todos(
 	request: Request,
 	db_session: AsyncSession = Depends(get_db),
@@ -77,10 +79,7 @@ async def get_todos(
 	return await ok(request, db_session)
 
 
-@app.post(
-	"/todo",
-	response_class=HTMLResponse,
-)
+@app.post("/todo", response_class=HTMLResponse)
 async def post_todo(
 	request: Request,
 	todo_title: Annotated[str, Form()],
@@ -91,13 +90,10 @@ async def post_todo(
 	return await ok(request, db_session)
 
 
-@app.delete(
-	"/todo/{todo_id}",
-	response_class=HTMLResponse,
-)
+@app.delete("/todo/{todo_id}", response_class=HTMLResponse)
 async def delete_todo(
 	request: Request,
-	todo_id: str,
+	todo_id: uuid.UUID,
 	db_session: AsyncSession = Depends(get_db),
 ):
 	todo_to_delete = await Todo.find_by_id(
@@ -105,4 +101,19 @@ async def delete_todo(
 		id=todo_id,
 	)
 	await Todo.delete(todo_to_delete, db_session=db_session)
+	return await ok(request, db_session)
+
+
+@app.patch("/todo/{todo_id}", response_class=HTMLResponse)
+async def delete_todo(
+	request: Request,
+	todo_id: str,
+	payload: TodoEdit,
+	db_session: AsyncSession = Depends(get_db),
+):
+	todo_to_delete = await Todo.find_by_id(
+		db_session=db_session,
+		id=todo_id,
+	)
+	todo_to_delete.title = todo_title
 	return await ok(request, db_session)

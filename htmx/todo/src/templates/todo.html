@@ -5,7 +5,8 @@
         {{ todo.title }}
     </div>
 
-    <button class="btn btn-error btn-outline btn-sm lowercase leading-relaxed pb-0.5"
-        hx-delete="/todo/{{ todo.id }}">x</button>
+    <button class="btn btn-outline btn-sm w-8 opacity-70" hx-delete="/todo/{{ todo.id }}">📝</button>
+
+    <button class="btn btn-error btn-outline btn-sm w-8 opacity-70" hx-delete="/todo/{{ todo.id }}">🗑️</button>
 </div>
 {% endfor %}
