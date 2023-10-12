@@ -47,6 +47,8 @@ async def ok(request: Request, db_session: AsyncSession):
 async def startup():
 	if not os.path.exists(DATABASE_FILE_PATH+DATABASE_FILE_NAME):
 		print("Initializing the db...")
+		if not os.path.exists(DATABASE_FILE_PATH):
+			os.mkdir(DATABASE_FILE_PATH)
 		await init_models()
 	else:
 		print("Db already exists. Connecting...")
