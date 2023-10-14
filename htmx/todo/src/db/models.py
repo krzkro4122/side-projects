@@ -1,5 +1,6 @@
 import uuid
 import datetime
+from pydantic import BaseModel
 
 from sqlalchemy import UUID, Column, DateTime, String
 
