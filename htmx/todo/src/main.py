@@ -17,8 +17,9 @@ from src.db.engine import (
 	get_db,
 	init_models
 )
-
 from src.db.models import Todo
+from src.db.schemas import TodoEdit
+
 
 app = FastAPI()
 
@@ -93,7 +94,7 @@ async def post_todo(
 @app.delete("/todo/{todo_id}", response_class=HTMLResponse)
 async def delete_todo(
 	request: Request,
-	todo_id: uuid.UUID,
+	todo_id: str,
 	db_session: AsyncSession = Depends(get_db),
 ):
 	todo_to_delete = await Todo.find_by_id(
@@ -104,16 +105,16 @@ async def delete_todo(
 	return await ok(request, db_session)
 
 
-@app.patch("/todo/{todo_id}", response_class=HTMLResponse)
-async def delete_todo(
-	request: Request,
-	todo_id: str,
-	payload: TodoEdit,
-	db_session: AsyncSession = Depends(get_db),
-):
-	todo_to_delete = await Todo.find_by_id(
-		db_session=db_session,
-		id=todo_id,
-	)
-	todo_to_delete.title = todo_title
-	return await ok(request, db_session)
+# @app.patch("/todo/{todo_id}", response_class=HTMLResponse)
+# async def edit_todo(
+# 	request: Request,
+# 	todo_id: str,
+# 	payload: TodoEdit,
+# 	db_session: AsyncSession = Depends(get_db),
+# ):
+# 	todo_to_delete = await Todo.find_by_id(
+# 		db_session=db_session,
+# 		id=todo_id,
+# 	)
+# 	todo_to_delete.title = payload.title
+# 	return await ok(request, db_session)

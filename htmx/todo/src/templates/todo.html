@@ -5,7 +5,7 @@
         {{ todo.title }}
     </div>
 
-    <button class="btn btn-outline btn-sm w-8 opacity-70" hx-delete="/todo/{{ todo.id }}">📝</button>
+    <button class="btn btn-outline btn-sm w-8 opacity-70" hx-patch="/todo/{{ todo.id }}">📝</button>
 
     <button class="btn btn-error btn-outline btn-sm w-8 opacity-70" hx-delete="/todo/{{ todo.id }}">🗑️</button>
 </div>
