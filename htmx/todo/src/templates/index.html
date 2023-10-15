@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.8.1/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="assets/todo.svg" type="image/x-icon">
+    <title>TODOs</title>
+</head>
+
+<body>
+    <div id="content">
+        <form id="form" hx-post="/todo" hx-target="#todos" hx-swap="innerHTML" hx-indicator=".htmx-indicator"
+            class="absolute gap-2 left-20 top-20">
+            <h1 id="title" class="mb-1 text-5xl font-bold indicator shadow-white">TODOs<img class="mt-1 ml-2"
+                    src="assets/todo.svg" alt="todo icon"></h1>
+            <div class="flex items-center gap-2 mb-1">
+                <textarea id="input"
+                    class="p-3 px-4 text-lg border-2 resize-none w-52 textarea h-14 hover:resize textarea-bordered textarea-primary"
+                    name="todo_title" role="textbox" contenteditable placeholder="Title" autocomplete="off" autofocus></textarea>
+                <button id="button" onclick="clearAndGrab()" class="btn btn-primary btn-sm">
+                    +
+                </button>
+                <span class="relative htmx-indicator -right-2 loading loading-spinner loading-lg"></span>
+            </div>
+
+            <div id="todos" class="grid gap-1 mt-2">
+                {% for todo in todos %}
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="box-content justify-between max-w-4xl p-1.5 px-2 font-mono break-words border-2 border-gray-700 border-solid rounded-md hover:bg-gray-800">
+                            {{ todo.title }}
+                        </div>
+                        <button class="clickable btn btn-outline btn-sm w-8 opacity-70" title="Edit entry" hx-patch="/todo/{{ todo.id }}"><span>✏️</span></button>
+                        <button class="clickable btn btn-error btn-outline btn-sm w-8 opacity-70" title="Delete entry" hx-delete="/todo/{{ todo.id }}"><span>🗑️</span></button>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+</body>
+
+<style>
+    #title {
+        font-family: 'Permanent Marker', cursive;
+    }
+
+    .clickable:hover span {
+        color: transparent;
+        text-shadow: 0 0 0 black;
+    }
+</style>
+
+<script>
+    const input = document.getElementById("input")
+    input.addEventListener('input', (event) => {
+        if (!event.target.value) {
+            document.getElementById('button').disabled = true;
+        } else {
+            document.getElementById('button').disabled = false;
+        }
+    });
+    input.addEventListener('focus', (event) => {
+        if (!event.target.value) {
+            document.getElementById('button').disabled = true;
+        } else {
+            document.getElementById('button').disabled = false;
+        }
+    });
+
+    function clearAndGrab() {
+        setTimeout(() => {
+            const input = document.querySelector('#input');
+            input.value = "";
+            input.focus();
+        }, 1)
+    }
+
+    input.addEventListener("keypress", function (e) {
+        if (e.which === 13) {
+            if (!e.shiftKey) {
+                e.preventDefault();
+                var newEvent = document.createEvent("Event");
+                newEvent.initEvent("submit", false, true);
+                event.target.form.dispatchEvent(newEvent);
+                clearAndGrab()
+            }
+        }
+    });
+</script>
+</html>

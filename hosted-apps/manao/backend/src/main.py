@@ -31,6 +31,7 @@ origins = [
 	"http://localhost",
 	"http://localhost:8000",
 	"http://localhost:5500",
+	"http://localhost:5173",
 ]
 app.add_middleware(
 	CORSMiddleware,
@@ -40,7 +41,7 @@ app.add_middleware(
 	allow_headers=["*"],
 )
 
-app.mount("/assets", StaticFiles(directory="src/assets"), name="assets")
+app.mount("/static", StaticFiles(directory="src/static"), name="static")
 
 templates = Jinja2Templates(directory="src/templates")
 
@@ -58,21 +59,16 @@ async def startup():
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request, db_session: AsyncSession = Depends(get_db)):
-	return templates.TemplateResponse(
-		"index.html",
-		{
-			"request": request,
-			"todos": await Todo.find_all(db_session=db_session),
-		}
-	)
+	with open('src/static/index.html') as file:
+		content = file.read()
+		return HTMLResponse(content=content)
 
 
-@app.get("/todo", response_class=HTMLResponse)
+@app.get("/todo", response_model=TodoResponse)
 async def get_todos(
-	request: Request,
 	db_session: AsyncSession = Depends(get_db),
 ):
-	return await ok(request, db_session)
+	return await Todo.find_all(db_session=db_session)
 
 
 @app.post("/todo", response_model=TodoResponse)
