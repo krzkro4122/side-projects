@@ -1,3 +1,5 @@
+import logging
+from logging.config import dictConfig
 import os
 
 from typing import Annotated
@@ -10,6 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
+from .log_config import LogConfig
 
 from src.db.engine import (
 	DATABASE_FILE_NAME,
@@ -20,8 +23,10 @@ from src.db.engine import (
 from src.db.models import Todo
 from src.db.schemas import TodoEdit
 
+dictConfig(LogConfig().dict())
+logger = logging.getLogger("todo")
 
-app = FastAPI()
+app = FastAPI(debug=True)
 
 origins = [
 	"http://localhost",
@@ -54,12 +59,12 @@ async def ok(request: Request, db_session: AsyncSession):
 @app.on_event("startup")
 async def startup():
 	if not os.path.exists(DATABASE_FILE_PATH + DATABASE_FILE_NAME):
-		print("Initializing the db...")
+		logger.debug("Initializing the db...")
 		if not os.path.exists(DATABASE_FILE_PATH):
 			os.mkdir(DATABASE_FILE_PATH)
 		await init_models()
 	else:
-		print("Db already exists. Connecting...")
+		logger.debug("Db already exists. Connecting...")
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -105,16 +110,16 @@ async def delete_todo(
 	return await ok(request, db_session)
 
 
-# @app.patch("/todo/{todo_id}", response_class=HTMLResponse)
-# async def edit_todo(
-# 	request: Request,
-# 	todo_id: str,
-# 	payload: TodoEdit,
-# 	db_session: AsyncSession = Depends(get_db),
-# ):
-# 	todo_to_delete = await Todo.find_by_id(
-# 		db_session=db_session,
-# 		id=todo_id,
-# 	)
-# 	todo_to_delete.title = payload.title
-# 	return await ok(request, db_session)
+@app.patch("/todo/{todo_id}", response_class=HTMLResponse)
+async def edit_todo(
+	request: Request,
+	todo_id: str,
+	payload: TodoEdit,
+	db_session: AsyncSession = Depends(get_db),
+):
+	todo_to_delete = await Todo.find_by_id(
+		db_session=db_session,
+		id=todo_id,
+	)
+	todo_to_delete.title = payload.title
+	return await ok(request, db_session)
