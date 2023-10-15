@@ -5,8 +5,14 @@
         {{ todo.title }}
     </div>
 
-    <button class="btn btn-outline btn-sm w-8 opacity-70" hx-patch="/todo/{{ todo.id }}">📝</button>
+    <button class="clickable btn btn-outline btn-sm w-8 opacity-70" title="Edit entry" hx-patch="/todo/{{ todo.id }}"><span>✏️</span></button>
 
-    <button class="btn btn-error btn-outline btn-sm w-8 opacity-70" hx-delete="/todo/{{ todo.id }}">🗑️</button>
+    <button class="clickable btn btn-error btn-outline btn-sm w-8 opacity-70" title="Delete entry" hx-delete="/todo/{{ todo.id }}"><span>🗑️</span></button>
 </div>
+<style>
+    .clickable:hover span {
+        color: transparent;
+        text-shadow: 0 0 0 black;
+    }
+</style>
 {% endfor %}
