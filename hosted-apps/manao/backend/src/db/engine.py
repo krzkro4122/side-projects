@@ -93,7 +93,7 @@ class Base:
         if not instance:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"There is no record for {cls.__name__} for requested id value : {id}",
+                detail=f"Could not find a record for {cls.__name__} with id: {id}",
             )
         return instance
 

@@ -1,7 +1,7 @@
 current_dir := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 
 serve:
-	uvicorn src.main:app --reload
+	uvicorn src.main:app --reload --port 8080
 
 build:
 	docker build -t layor/todo .

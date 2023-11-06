@@ -4,7 +4,7 @@ import logging
 from typing import Annotated
 from logging.config import dictConfig
 
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.params import Depends
 from fastapi.responses import HTMLResponse
@@ -20,7 +20,7 @@ from src.db.engine import (
 	init_models
 )
 from src.db.models import Todo
-from src.db.schemas import TodoEdit, TodoResponse
+from src.db.schemas import TodoCreate, TodoEdit, TodoResponse
 
 dictConfig(LogConfig().dict())
 logger = logging.getLogger("todo")
@@ -58,54 +58,73 @@ async def startup():
 
 
 @app.get("/", response_class=HTMLResponse)
-async def root(request: Request, db_session: AsyncSession = Depends(get_db)):
+async def root():
 	with open('src/static/index.html') as file:
 		content = file.read()
 		return HTMLResponse(content=content)
 
 
-@app.get("/todo", response_model=TodoResponse)
+@app.get("/todo", response_model=list[TodoResponse])
 async def get_todos(
 	db_session: AsyncSession = Depends(get_db),
 ):
-	return await Todo.find_all(db_session=db_session)
+	return await Todo.find_all(
+		db_session=db_session
+	)
+
+
+@app.get("/todo/{todo_id}", response_model=TodoResponse)
+async def get_todo(
+	todo_id: str,
+	db_session: AsyncSession = Depends(get_db),
+):
+	return await Todo.find_by_id(
+		db_session=db_session,
+		id=todo_id,
+	)
 
 
 @app.post("/todo", response_model=TodoResponse)
 async def post_todo(
-	request: Request,
-	todo_title: Annotated[str, Form()],
+	payload: TodoCreate,
 	db_session: AsyncSession = Depends(get_db),
 ):
-	new_todo = Todo(title=todo_title)
+	new_todo: Todo = Todo(**payload.dict())
 	await new_todo.save(db_session)
+	await db_session.refresh(new_todo)
 	return new_todo
 
 
-@app.delete("/todo/{todo_id}", response_class=HTMLResponse)
+@app.delete("/todo/{todo_id}", response_model=TodoResponse)
 async def delete_todo(
-	request: Request,
 	todo_id: str,
 	db_session: AsyncSession = Depends(get_db),
 ):
-	todo_to_delete = await Todo.find_by_id(
+	todo = await Todo.find_by_id(
 		db_session=db_session,
 		id=todo_id,
 	)
-	await Todo.delete(todo_to_delete, db_session=db_session)
-	# return await ok(request, db_session)
+	await Todo.delete(
+		todo,
+		db_session=db_session
+	)
+	return todo
 
 
-@app.patch("/todo/{todo_id}", response_class=HTMLResponse)
+@app.patch("/todo/{todo_id}", response_model=TodoResponse)
 async def edit_todo(
-	request: Request,
 	todo_id: str,
 	payload: TodoEdit,
 	db_session: AsyncSession = Depends(get_db),
 ):
-	todo_to_delete = await Todo.find_by_id(
+	todo = await Todo.find_by_id(
 		db_session=db_session,
 		id=todo_id,
 	)
-	todo_to_delete.title = payload.title
-	# return await ok(request, db_session)
+	todo.title = payload.title
+	await Todo.save(
+		todo,
+		db_session=db_session
+	)
+	await db_session.refresh(todo)
+	return todo
