@@ -12,6 +12,7 @@ learning_rate = 1e-2
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 evaluation_iterations = 200
 train_test_ratio = 0.9
+no_of_embedding_dimensions = 32
 
 torch.manual_seed(1337)
 
@@ -74,10 +75,17 @@ def estimate_loss():
 class BigramLanguageModel(nn.Module):
     def __init__(self):
         super().__init__()
-        self.token_embedding_table = nn.Embedding(vocabulary_size, vocabulary_size)
+        self.token_embedding_table = nn.Embedding(vocabulary_size, no_of_embedding_dimensions)
+        self.position_embedding_table = nn.Embedding(block_size, no_of_embedding_dimensions)
+        self.language_model_head = nn.Linear(no_of_embedding_dimensions, vocabulary_size)
 
     def forward(self, idx, targets = None):
-        logits = self.token_embedding_table(idx)
+        B, T = idx.shape
+
+        token_embedding = self.token_embedding_table(idx)  # (B, T, C)
+        positional_embedding = self.position_embedding_table(torch.arange(T, device=device))  # (T, C)
+        x = token_embedding + positional_embedding  # (B, T, C)
+        logits = self.language_model_head(x)  # (B, T, vocabulary_size)
 
         if targets is None:
             loss = None
