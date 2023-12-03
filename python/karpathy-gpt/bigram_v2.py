@@ -107,9 +107,12 @@ class MultiHeadAttention(nn.Module):
     def __init__(self, no_of_heads, head_size):
         super().__init__()
         self.heads = nn.ModuleList([Head(head_size) for _ in range(no_of_heads)])
+        self.projection = nn.Linear(no_of_embedding_dimensions, no_of_embedding_dimensions)
 
     def forward(self, x):
-        return torch.cat([head(x) for head in self.heads], dim=-1)
+        output = torch.cat([head(x) for head in self.heads], dim=-1)
+        output = self.projection(output)
+        return output
 
 
 class FeedForward(nn.Module):
@@ -118,12 +121,30 @@ class FeedForward(nn.Module):
     def __init__(self, no_of_embedding_dims):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(no_of_embedding_dims, no_of_embedding_dims),
+            nn.Linear(no_of_embedding_dims, 4 * no_of_embedding_dims),
             nn.ReLU(),
+            nn.Linear(4 * no_of_embedding_dims, no_of_embedding_dims),  # projection layer going back to the residual pathway
         )
 
     def forward(self, x):
         return self.net(x)
+
+
+class Block(nn.Module):
+    """Transformer block: communication followed by computation"""
+
+    def __init__(self, no_of_embedding_dims, no_of_heads):
+        # no_of_embedding_dims: embedding dimension
+        # no_of_heads: the number of heads we'd like
+        super().__init__()
+        head_size = no_of_embedding_dims // no_of_heads
+        self.self_attention = MultiHeadAttention(no_of_heads, head_size)
+        self.feed_forward = FeedForward(no_of_embedding_dims)
+
+    def forward(self, x):
+        x = x + self.self_attention(x)
+        x = x + self.feed_forward(x)
+        return x
 
 
 class BigramLanguageModel(nn.Module):
@@ -131,8 +152,11 @@ class BigramLanguageModel(nn.Module):
         super().__init__()
         self.token_embedding_table = nn.Embedding(vocabulary_size, no_of_embedding_dimensions)
         self.position_embedding_table = nn.Embedding(block_size, no_of_embedding_dimensions)
-        self.self_attention_heads = MultiHeadAttention(4, no_of_embedding_dimensions // 4)  # i.e. 4 heads of 8-dimensional self-attention
-        self.feed_forward = FeedForward(no_of_embedding_dimensions)
+        self.blocks = nn.Sequential(
+            Block(no_of_embedding_dimensions, no_of_heads=4),
+            Block(no_of_embedding_dimensions, no_of_heads=4),
+            Block(no_of_embedding_dimensions, no_of_heads=4),
+        )
         self.language_model_head = nn.Linear(no_of_embedding_dimensions, vocabulary_size)
 
     def forward(self, idx, targets = None):
