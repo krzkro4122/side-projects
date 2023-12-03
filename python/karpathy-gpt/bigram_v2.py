@@ -1,3 +1,4 @@
+from sympy import Mul
 import torch
 import torch.nn as nn
 
@@ -6,9 +7,9 @@ from torch.nn import functional as F
 # hyper parameters
 batch_size = 32  # no of independent sequences processed in parallel
 block_size = 8  # maximum context length for predictions
-max_iterations = 3000
-evaluation_interval = 300
-learning_rate = 1e-2
+max_iterations = 5000
+evaluation_interval = 500
+learning_rate = 1e-3
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 evaluation_iterations = 200
 train_test_ratio = 0.9
@@ -72,11 +73,50 @@ def estimate_loss():
     return out
 
 
+class Head(nn.Module):
+    """One head of self-attention"""
+
+    def __init__(self, head_size):
+        super().__init__()
+        self.key = nn.Linear(no_of_embedding_dimensions, head_size, bias=False)
+        self.query = nn.Linear(no_of_embedding_dimensions, head_size, bias=False)
+        self.value = nn.Linear(no_of_embedding_dimensions, head_size, bias=False)
+        self.register_buffer('tril', torch.tril(torch.ones(block_size, block_size)))
+
+    def forward(self, x):
+        B, T, C = x.shape
+
+        k = self.key(x)     # (B, T, C)
+        q = self.query(x)   # (B, T, C)
+
+        # compute affinities (attention scores)
+        weights = q @ k.transpose(-2, -1) * C**-0.5  # (B, T, C) @ (B, C, T) -> (B, T, T)
+        weights = weights.masked_fill(self.tril[:T, :T] == 0, float('-inf'))  # (B, T, T)
+        weights = F.softmax(weights, dim=-1)  # (B, T, T)
+
+        # perform the weighted aggregation of values
+        v = self.value(x)  # (B, T, C)
+        output = weights @ v  # (B, T, T) @ (B, T, C) -> (B, T, C)
+        return output
+
+
+class MultiHeadAttention(nn.Module):
+    """Multiple heads of self-attention in parallel"""
+
+    def __init__(self, no_of_heads, head_size):
+        super().__init__()
+        self.heads = nn.ModuleList([Head(head_size) for _ in range(no_of_heads)])
+
+    def forward(self, x):
+        return torch.cat([head(x) for head in self.heads], dim=-1)
+
+
 class BigramLanguageModel(nn.Module):
     def __init__(self):
         super().__init__()
         self.token_embedding_table = nn.Embedding(vocabulary_size, no_of_embedding_dimensions)
         self.position_embedding_table = nn.Embedding(block_size, no_of_embedding_dimensions)
+        self.self_attention_heads = MultiHeadAttention(4, no_of_embedding_dimensions // 4)  # i.e. 4 heads of 8-dimensional self-attention
         self.language_model_head = nn.Linear(no_of_embedding_dimensions, vocabulary_size)
 
     def forward(self, idx, targets = None):
@@ -85,6 +125,7 @@ class BigramLanguageModel(nn.Module):
         token_embedding = self.token_embedding_table(idx)  # (B, T, C)
         positional_embedding = self.position_embedding_table(torch.arange(T, device=device))  # (T, C)
         x = token_embedding + positional_embedding  # (B, T, C)
+        x = self.self_attention_head(x)  # apply one head of self attention (B, T, C)
         logits = self.language_model_head(x)  # (B, T, vocabulary_size)
 
         if targets is None:
@@ -100,10 +141,17 @@ class BigramLanguageModel(nn.Module):
     def generate(self, idx, max_new_tokens):
         # idx is (B, T) array of indices in the current context
         for _ in range(max_new_tokens):
-            logits, loss = self(idx)
+            # crop idx to the last block_size tokens
+            idx_cropped = idx[:, -block_size:]
+            # get the predictions
+            logits, loss = self(idx_cropped)
+            # focus only on the last time step
             logits = logits[:, -1, :]
+            # apply softmasx to get probabilities
             probs = F.softmax(logits, dim=-1)
+            # sample from the distribution
             idx_next = torch.multinomial(probs, num_samples=1)
+            # append sampled index to the running sequence
             idx = torch.cat((idx, idx_next), dim=1)  # (B, T + 1)
         return idx
 
