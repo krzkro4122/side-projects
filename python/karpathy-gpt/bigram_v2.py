@@ -6,15 +6,18 @@ import torch.nn as nn
 from torch.nn import functional as F
 
 # hyper parameters
-batch_size = 32  # no of independent sequences processed in parallel
-block_size = 8  # maximum context length for predictions
+batch_size = 64  # no of independent sequences processed in parallel
+block_size = 256  # maximum context length for predictions
 max_iterations = 5000
 evaluation_interval = 500
-learning_rate = 1e-3
+learning_rate = 3e-4
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 evaluation_iterations = 200
 train_test_ratio = 0.9
-no_of_embedding_dimensions = 32
+no_of_embedding_dimensions = 384
+number_of_layers = 6
+number_of_heads = 6
+dropout = 0.2
 
 torch.manual_seed(1337)
 
@@ -84,6 +87,8 @@ class Head(nn.Module):
         self.value = nn.Linear(no_of_embedding_dimensions, head_size, bias=False)
         self.register_buffer('tril', torch.tril(torch.ones(block_size, block_size)))
 
+        self. dropout = nn.Dropout(dropout)
+
     def forward(self, x):
         B, T, C = x.shape
 
@@ -94,6 +99,7 @@ class Head(nn.Module):
         weights = q @ k.transpose(-2, -1) * C**-0.5  # (B, T, C) @ (B, C, T) -> (B, T, T)
         weights = weights.masked_fill(self.tril[:T, :T] == 0, float('-inf'))  # (B, T, T)
         weights = F.softmax(weights, dim=-1)  # (B, T, T)
+        weights = self.dropout(weights)
 
         # perform the weighted aggregation of values
         v = self.value(x)  # (B, T, C)
@@ -108,10 +114,13 @@ class MultiHeadAttention(nn.Module):
         super().__init__()
         self.heads = nn.ModuleList([Head(head_size) for _ in range(no_of_heads)])
         self.projection = nn.Linear(no_of_embedding_dimensions, no_of_embedding_dimensions)
+        self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
         output = torch.cat([head(x) for head in self.heads], dim=-1)
-        output = self.projection(output)
+        output = self.dropout(
+            self.projection(output)
+        )
         return output
 
 
@@ -124,6 +133,7 @@ class FeedForward(nn.Module):
             nn.Linear(no_of_embedding_dims, 4 * no_of_embedding_dims),
             nn.ReLU(),
             nn.Linear(4 * no_of_embedding_dims, no_of_embedding_dims),  # projection layer going back to the residual pathway
+            nn.Dropout(dropout),
         )
 
     def forward(self, x):
@@ -140,10 +150,16 @@ class Block(nn.Module):
         head_size = no_of_embedding_dims // no_of_heads
         self.self_attention = MultiHeadAttention(no_of_heads, head_size)
         self.feed_forward = FeedForward(no_of_embedding_dims)
+        self.layer_norm_1 = nn.LayerNorm(no_of_embedding_dims)
+        self.layer_norm_2 = nn.LayerNorm(no_of_embedding_dims)
 
     def forward(self, x):
-        x = x + self.self_attention(x)
-        x = x + self.feed_forward(x)
+        x = x + self.self_attention(
+            self.layer_norm_1(x)
+        )
+        x = x + self.feed_forward(
+            self.layer_norm_2(x)
+        )
         return x
 
 
@@ -152,11 +168,8 @@ class BigramLanguageModel(nn.Module):
         super().__init__()
         self.token_embedding_table = nn.Embedding(vocabulary_size, no_of_embedding_dimensions)
         self.position_embedding_table = nn.Embedding(block_size, no_of_embedding_dimensions)
-        self.blocks = nn.Sequential(
-            Block(no_of_embedding_dimensions, no_of_heads=4),
-            Block(no_of_embedding_dimensions, no_of_heads=4),
-            Block(no_of_embedding_dimensions, no_of_heads=4),
-        )
+        self.blocks = nn.Sequential(*[Block(no_of_embedding_dimensions, no_of_heads=number_of_heads) for _ in range(number_of_layers)])
+        self.layer_norm = nn.LayerNorm(no_of_embedding_dimensions)
         self.language_model_head = nn.Linear(no_of_embedding_dimensions, vocabulary_size)
 
     def forward(self, idx, targets = None):
@@ -165,8 +178,8 @@ class BigramLanguageModel(nn.Module):
         token_embedding = self.token_embedding_table(idx)  # (B, T, C)
         positional_embedding = self.position_embedding_table(torch.arange(T, device=device))  # (T, C)
         x = token_embedding + positional_embedding  # (B, T, C)
-        x = self.self_attention_heads(x)  # apply heads of self attention (B, T, C)
-        x = self.feed_forward(x)  # (B, T, C)
+        x = self.blocks(x)  # apply heads of self attention (B, T, C)
+        x = self.layer_norm(x)  # (B, T, C)
         logits = self.language_model_head(x)  # (B, T, vocabulary_size)
 
         if targets is None:
@@ -218,4 +231,10 @@ for iteration in range(max_iterations):
 
 
 context = torch.zeros((1, 1), dtype=torch.long, device=device)
-print(decode(model.generate(context, max_new_tokens=500)[0].tolist()))
+output = decode(model.generate(context, max_new_tokens=2000)[0].tolist())
+with open("output.txt", "w") as handle:
+    handle.write(output)
+
+print(output)
+
+torch.save(model, "model.pth")
