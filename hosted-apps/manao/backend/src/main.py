@@ -4,13 +4,14 @@ import logging
 from typing import Annotated
 from logging.config import dictConfig
 
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, Request, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.params import Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi.templating import Jinja2Templates
 
 from .log_config import LogConfig
 from src.db.engine import (
@@ -29,7 +30,9 @@ app = FastAPI(debug=True)
 
 origins = [
 	"http://localhost",
+	"http://127.0.0.1",
 	"http://localhost:8000",
+	"http://localhost:8080",
 	"http://localhost:5500",
 	"http://localhost:5173",
 ]
@@ -41,7 +44,7 @@ app.add_middleware(
 	allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="src/static"), name="static")
+app.mount("/static", StaticFiles(directory="src/templates/static"), name="static")
 
 templates = Jinja2Templates(directory="src/templates")
 
@@ -58,10 +61,8 @@ async def startup():
 
 
 @app.get("/", response_class=HTMLResponse)
-async def root():
-	with open('src/static/index.html') as file:
-		content = file.read()
-		return HTMLResponse(content=content)
+async def root(request: Request):
+	return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.get("/todo", response_model=list[TodoResponse])
@@ -128,3 +129,11 @@ async def edit_todo(
 	)
 	await db_session.refresh(todo)
 	return todo
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")

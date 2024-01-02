@@ -11,7 +11,7 @@ COPY src /app/src
 
 WORKDIR /app
 
-EXPOSE 8000
+EXPOSE 8001
 
 ENTRYPOINT ["uvicorn"]
-CMD ["src.main:app", "--host", "0.0.0.0"]
+CMD ["src.main:app", "--host", "0.0.0.0", "--port", "8001"]

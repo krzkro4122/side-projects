@@ -13,18 +13,20 @@ DATABASE_FILE_NAME = "db.db"
 SQLALCHEMY_DATABASE_URL = f"sqlite+aiosqlite:///{DATABASE_FILE_PATH}{DATABASE_FILE_NAME}"
 
 engine = create_async_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    SQLALCHEMY_DATABASE_URL,
+    connect_args={
+        "check_same_thread": False,
+    },
 )
 
 async_session = sessionmaker(
+    engine, # type: ignore
     autocommit=False,
-    autoflush=False,
-    bind=engine,
     class_=AsyncSession
-)
+) # type: ignore
 
 async def get_db():
-    async with async_session() as session:
+    async with async_session() as session: # type: ignore
         try:
             yield session
             await session.commit()
@@ -46,7 +48,7 @@ class Base:
     id: str
     __name__: str
 
-    @declared_attr
+    @declared_attr # type: ignore
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
 
@@ -87,7 +89,7 @@ class Base:
 
     @classmethod
     async def find_by_id(cls, db_session: AsyncSession, id: str):
-        stmt = select(cls).where(cls.id == id)
+        stmt = select(cls).where(cls.id == id) # type: ignore
         result = await db_session.execute(stmt)
         instance = result.scalars().first()
         if not instance:
@@ -108,5 +110,5 @@ class Base:
 
 async def init_models():
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
+        await conn.run_sync(Base.metadata.drop_all)  # type: ignore
+        await conn.run_sync(Base.metadata.create_all)  # type: ignore
