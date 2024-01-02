@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import Todos from './Todos';
-import todoLogo from './assets/todo.svg'
+import todoLogo from './static/todo.svg'
+
 
 function App() {
   const [todos, setTodos] = useState([]);
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
   async function postTodo(title) {
-    const response = await fetch("http://localhost:8000/todo", {
+    const response = await fetch("http://localhost:8080/todo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -23,12 +24,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const response = await fetch("http://localhost:8000/");
-      } catch (error) {
-        return;
-      }
-
+      const response = await fetch("http://localhost:8080/todo");
       if (response.ok) {
         const incoming_todos = await response.json();
         setTodos(incoming_todos.todos);
