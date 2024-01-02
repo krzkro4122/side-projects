@@ -237,4 +237,5 @@ with open("output.txt", "w") as handle:
 
 print(output)
 
-torch.save(model, "model.pth")
+torch.save(model, "./model.pth")
+torch.save(model.state_dict(), "./model_state_dict.pth")
