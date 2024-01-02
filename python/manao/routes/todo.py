@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from config.db import get_db
 from models.todo import Todo
 from shemas.todo import TodoCreate, TodoEdit, TodoResponse
+from utils.todo import change_content
 
 
 logger = logging.getLogger("todo")
@@ -49,10 +50,7 @@ async def delete_todo(
 		id=todo_id,
 		db_session=db_session,
 	)
-	await Todo.delete(
-		todo,
-		db_session=db_session
-	)
+	await Todo.delete(todo, db_session)
 	return todo
 
 
@@ -62,14 +60,8 @@ async def edit_todo(
 	payload: TodoEdit,
 	db_session: AsyncSession = Depends(get_db), # type: ignore
 ):
-	todo = await Todo.find_by_id(
-		db_session=db_session,
-		id=todo_id,
+	return await change_content(
+		todo_id,
+		payload.content,
+		db_session
 	)
-	todo.content = payload.content
-	await Todo.save(
-		todo,
-		db_session=db_session
-	)
-	await db_session.refresh(todo)
-	return todo
