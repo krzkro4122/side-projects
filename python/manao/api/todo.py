@@ -6,8 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from config.db import get_db
 from models.todo import Todo
-from shemas.todo import TodoCreate, TodoEdit, TodoResponse
-from utils.todo import change_content
+from schemas.todo import TodoCreate, TodoEdit, TodoResponse
+from utils.todo import change_content, get_all_todos
 
 
 logger = logging.getLogger("todo")
@@ -17,7 +17,7 @@ router = APIRouter()
 
 @router.get("", response_model=list[TodoResponse])
 async def get_todos(db_session: AsyncSession = Depends(get_db)): # type: ignore
-	return await Todo.find_all(db_session)
+	return await get_all_todos(db_session)
 
 
 @router.get("{todo_id}", response_model=TodoResponse)
