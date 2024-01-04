@@ -12,27 +12,26 @@ from utils.todo import get_all_todos
 logger = getLogger("main")
 
 
-# TODO - move
 @app.on_event("startup")
 async def startup():
-	await init_database()
+    await init_database()
 
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
-	return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
 async def render_dashboard(
-	request: Request,
-	db_session: AsyncSession = Depends(get_db),
+    request: Request,
+    db_session: AsyncSession = Depends(get_db),
 ):
-	todos = await get_all_todos(db_session)
-	return templates.TemplateResponse(
-		"dashboard.html",
-		{
-			"request": request,
-			"todos": todos,
-		}
-	)
+    todos = await get_all_todos(db_session)
+    return templates.TemplateResponse(
+        "dashboard.html",
+        {
+            "request": request,
+            "todos": todos,
+        },
+    )
