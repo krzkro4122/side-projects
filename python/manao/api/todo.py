@@ -16,52 +16,48 @@ router = APIRouter()
 
 
 @router.get("", response_model=list[TodoResponse])
-async def get_todos(db_session: AsyncSession = Depends(get_db)): # type: ignore
-	return await get_all_todos(db_session)
+async def get_todos(db_session: AsyncSession = Depends(get_db)):  # type: ignore
+    return await get_all_todos(db_session)
 
 
 @router.get("{todo_id}", response_model=TodoResponse)
 async def get_todo(
-	todo_id: str,
-	db_session: AsyncSession = Depends(get_db), # type: ignore
+    todo_id: str,
+    db_session: AsyncSession = Depends(get_db),  # type: ignore
 ):
-	return await Todo.find_by_id(
-		id=todo_id,
-		db_session=db_session,
-	)
+    return await Todo.find_by_id(
+        id=todo_id,
+        db_session=db_session,
+    )
 
 
 @router.post("", response_model=TodoResponse)
 async def post_todo(
-	payload: TodoCreate,
-	db_session: AsyncSession = Depends(get_db), # type: ignore
+    payload: TodoCreate,
+    db_session: AsyncSession = Depends(get_db),  # type: ignore
 ):
-	new_todo: Todo = Todo(**payload.dict())
-	await new_todo.save(db_session)
-	return new_todo
+    new_todo: Todo = Todo(**payload.dict())
+    await new_todo.save(db_session)
+    return new_todo
 
 
 @router.delete("{todo_id}", response_model=TodoResponse)
 async def delete_todo(
-	todo_id: str,
-	db_session: AsyncSession = Depends(get_db), # type: ignore
+    todo_id: str,
+    db_session: AsyncSession = Depends(get_db),  # type: ignore
 ):
-	todo = await Todo.find_by_id(
-		id=todo_id,
-		db_session=db_session,
-	)
-	await Todo.delete(todo, db_session)
-	return todo
+    todo = await Todo.find_by_id(
+        id=todo_id,
+        db_session=db_session,
+    )
+    await Todo.delete(todo, db_session)
+    return todo
 
 
 @router.patch("{todo_id}", response_model=TodoResponse)
 async def edit_todo(
-	todo_id: str,
-	payload: TodoEdit,
-	db_session: AsyncSession = Depends(get_db), # type: ignore
+    todo_id: str,
+    payload: TodoEdit,
+    db_session: AsyncSession = Depends(get_db),  # type: ignore
 ):
-	return await change_content(
-		todo_id,
-		payload.content,
-		db_session
-	)
+    return await change_content(todo_id, payload.content, db_session)
