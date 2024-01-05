@@ -5,16 +5,11 @@ from fastapi.responses import HTMLResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from config.app import app, templates
-from config.db import get_db, init_database
+from config.db import get_db
 from utils.todo import get_all_todos
 
 
 logger = getLogger("main")
-
-
-@app.on_event("startup")
-async def startup():
-    await init_database()
 
 
 @app.get("/", response_class=HTMLResponse)
