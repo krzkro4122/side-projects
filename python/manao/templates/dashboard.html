@@ -10,8 +10,7 @@
             <ul class="menu bg-base-200 w-2/3 rounded-box">
                 {% for todo in todos %}
                     <li class="todo collapse">
-                        
-                        <h3>{{ todo.content }}</h3>
+                        <h3><b>{{ todo.content }}</b></h3>
                     </li>
                 {% endfor %}
             </ul>
@@ -21,4 +20,8 @@
 
         {% endif %}
     </div>
+
+    <script>
+        
+    </script>
 {% endblock %}

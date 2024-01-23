@@ -15,7 +15,9 @@
   <body>
     <div class="w-screen h-screen flex flex-col justify-between">
       <div class="flex justify-center">
-        <h1>{% block heading %}Manao{% endblock %}</h1>
+        <h1 class="p-3 px-5 m-7 rounded-xl font-mono text-gray-300 bg-violet-500 text-3xl font-bold">
+          {% block heading %}Manao{% endblock %}
+        </h1>
       </div>
 
       <div class="mb-auto">{% block content %} {% endblock %}</div>
