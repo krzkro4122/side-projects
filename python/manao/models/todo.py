@@ -25,3 +25,8 @@ class Todo(Base):
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
         self.content = content
+
+    def as_dict(self):
+        return {
+            column.name: getattr(self, column.name) for column in self.__table__.columns
+        }

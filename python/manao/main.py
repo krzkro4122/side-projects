@@ -1,12 +1,10 @@
 from logging import getLogger
 
-from fastapi import Depends, Request
+from fastapi import Request
 from fastapi.responses import HTMLResponse
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from config.app import app, templates
-from config.db import get_db
-from utils.todo import get_all_todos
+from config.app import app
+from lib.todo import templates
 
 
 logger = getLogger("main")
@@ -15,18 +13,3 @@ logger = getLogger("main")
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
-
-
-@app.get("/dashboard", response_class=HTMLResponse)
-async def render_dashboard(
-    request: Request,
-    db_session: AsyncSession = Depends(get_db),
-):
-    todos = await get_all_todos(db_session)
-    return templates.TemplateResponse(
-        "dashboard.html",
-        {
-            "request": request,
-            "todos": todos,
-        },
-    )
