@@ -3,7 +3,7 @@ import f5Logo from "@/assets/f5-logo-rgb.png"
 import motorolaLogo from "@/assets/motorola-logo.png"
 import ujLogo from "@/assets/uj-logo.png"
 import aghLogo from "@/assets/agh-logo.png"
-import { BookMarked, EarthLock, GraduationCap, PlugZap, RadioTower } from "lucide-react";
+import { BookMarked, CircleHelp, EarthLock, GraduationCap, Grid3X3, ImagePlus, MessagesSquare, PlugZap, RadioTower, SlidersHorizontal } from "lucide-react";
 import { StaticImageData } from "next/image";
 
 export interface CardProps {
@@ -23,6 +23,7 @@ export const experienceCards: CardProps[] = [
         imageAlt: "Logo of WILLBERT by Euroloop",
         imageSrc: willbertLogo,
         text: "E-Mobility",
+        text2: "Backed software developer",
         title: "WILLBERT by Euroloop",
     },
     {
@@ -31,6 +32,7 @@ export const experienceCards: CardProps[] = [
         imageAlt: "Logo of F5 networks",
         imageSrc: f5Logo,
         text: "Cloud security",
+        text2: "Software Engineer II",
         title: "F5 networks",
     },
     {
@@ -39,6 +41,7 @@ export const experienceCards: CardProps[] = [
         imageAlt: "Logo of Motorola Solutions",
         imageSrc: motorolaLogo,
         text: "Mission Critical technology",
+        text2: "Software Developer",
         title: "Motorola Solutions",
     },
 ]
@@ -50,7 +53,7 @@ export const educationCards: CardProps[] = [
         imageAlt: "Logo of the Jagiellonian University",
         imageSrc: ujLogo,
         text: "Applied Computer Science",
-        text2: "Masters",
+        text2: "Master",
         title: "Jagiellonian University",
     },
     {
@@ -61,5 +64,53 @@ export const educationCards: CardProps[] = [
         text: "Electronics and Telecom",
         text2: "Engineer",
         title: "AGH University",
+    },
+]
+
+export const projectCards: CardProps[] = [
+    {
+        href: "http://67.207.78.202:5001",
+        icon: <SlidersHorizontal size={50}/>,
+        imageAlt: "Logo of Goofy Slider",
+        imageSrc: ujLogo,
+        text: "A simple game challange",
+        text2: "Express.js",
+        title: "Goofy Slider",
+    },
+    {
+        href: "http://67.207.78.202:5004",
+        icon: <ImagePlus size={50}/>,
+        imageAlt: "Logo of AI Image Generator",
+        imageSrc: aghLogo,
+        text: "Possible thanks to Dall-e",
+        text2: "Express.js",
+        title: "AI Image Generator",
+    },
+    {
+        href: "http://67.207.78.202:5000",
+        icon: <Grid3X3 size={50}/>,
+        imageAlt: "Logo of Tic Tac Toe",
+        imageSrc: aghLogo,
+        text: "With move history",
+        text2: "React.js, Python (Flask)",
+        title: "Tic Tac Toe",
+    },
+    {
+        href: "http://67.207.78.202:5173",
+        icon: <MessagesSquare size={50}/>,
+        imageAlt: "Logo of Chatter",
+        imageSrc: aghLogo,
+        text: "ChatGPT-powered chatbot",
+        text2: "React.js, Python (FastAPI + Flask)",
+        title: "Chatter",
+    },
+    {
+        href: "http://67.207.78.202",
+        icon: <CircleHelp size={50}/>,
+        imageAlt: "Logo of Cursum",
+        imageSrc: aghLogo,
+        text: "A minimal quizz web app",
+        text2: "React.js, Nginx",
+        title: "Cursum",
     },
 ]
