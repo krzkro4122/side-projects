@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { Card } from "./Card";
 import { CardProps } from "./cards";
 
@@ -8,14 +9,15 @@ interface HorizontalCardsProps {
 
 export const HorizontalCards = ({ cards, title }: HorizontalCardsProps) => {
   return (
-    <div className="flex flex-col gap-4 p-10 text-black text-3xl font-bold">
-      <span>{title}</span>
-      <div className="flex gap-5">
+    <div className="flex flex-col gap-2 p-1 px-10 text-black text-3xl font-bold">
+      <div className="flex items-center gap-4">
+        <span className="opacity-85">{title}</span>
+        <div className="bg-black h-1 w-full opacity-30 rounded-lg"></div>
+      </div>
+      <div className="flex gap-5 overflow-visible p-2">
         {cards &&
-          cards.map((card) => {
-            return (
-              <Card {...card} />
-            );
+          cards.map((card, index) => {
+            return <Card {...card} key={randomUUID()} />;
           })}
       </div>
     </div>

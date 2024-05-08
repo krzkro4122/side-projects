@@ -26,13 +26,13 @@ export const Age = () => {
 
   return (
     <span className="text-gray-500 font-medium text-xl font-mono">
-      {duration.years()} years {duration.months()} months {duration.weeks()}{" "}
+      Alive for {duration.years()} years {duration.months()} months {duration.weeks()}{" "}
       weeks {duration.days()} days {duration.hours()} hours {duration.minutes()}{" "}
-      minutes{" "}
+      minutes{" and "}
       <span className="w-10">
         {duration.seconds().toString().padStart(2, "0")}
       </span>{" "}
-      seconds old
+      seconds
     </span>
   );
 };
