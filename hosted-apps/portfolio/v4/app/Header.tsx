@@ -1,5 +1,6 @@
 import { Profile } from "./Profile";
 import { NameLabel } from "./NameLabel";
+import { Socials } from "./Socials";
 
 export const Header = ({ className }: { className: string }) => {
   return (
@@ -8,7 +9,9 @@ export const Header = ({ className }: { className: string }) => {
         <div className="flex items-center gap-5">
           <NameLabel />
         </div>
-        <div className="text-black">Socials</div>
+        <div className="text-black flex-grow">
+          <Socials />
+        </div>
         <Profile />
       </div>
     </div>

@@ -3,6 +3,12 @@ import f5Logo from "@/assets/f5-logo-rgb.png"
 import motorolaLogo from "@/assets/motorola-logo.png"
 import ujLogo from "@/assets/uj-logo.png"
 import aghLogo from "@/assets/agh-logo.png"
+import goofyLogo from "@/assets/goofy-slider-logo.png"
+import generatorLogo from "@/assets/ai-image-generator-logo.png"
+import tictactoeLogo from "@/assets/tic-tac-toe-logo.png"
+import cursumLogo from "@/assets/cursum-logo.png"
+import chatterLogo from "@/assets/chatter-logo.png"
+
 import { BookMarked, CircleHelp, EarthLock, GraduationCap, Grid3X3, ImagePlus, MessagesSquare, PlugZap, RadioTower, SlidersHorizontal } from "lucide-react";
 import { StaticImageData } from "next/image";
 
@@ -72,7 +78,7 @@ export const projectCards: CardProps[] = [
         href: "http://67.207.78.202:5001",
         icon: <SlidersHorizontal size={50}/>,
         imageAlt: "Logo of Goofy Slider",
-        imageSrc: ujLogo,
+        imageSrc: goofyLogo,
         text: "A simple game challange",
         text2: "Express.js",
         title: "Goofy Slider",
@@ -81,7 +87,7 @@ export const projectCards: CardProps[] = [
         href: "http://67.207.78.202:5004",
         icon: <ImagePlus size={50}/>,
         imageAlt: "Logo of AI Image Generator",
-        imageSrc: aghLogo,
+        imageSrc: generatorLogo,
         text: "Possible thanks to Dall-e",
         text2: "Express.js",
         title: "AI Image Generator",
@@ -90,7 +96,7 @@ export const projectCards: CardProps[] = [
         href: "http://67.207.78.202:5000",
         icon: <Grid3X3 size={50}/>,
         imageAlt: "Logo of Tic Tac Toe",
-        imageSrc: aghLogo,
+        imageSrc: tictactoeLogo,
         text: "With move history",
         text2: "React.js, Python (Flask)",
         title: "Tic Tac Toe",
@@ -99,7 +105,7 @@ export const projectCards: CardProps[] = [
         href: "http://67.207.78.202:5173",
         icon: <MessagesSquare size={50}/>,
         imageAlt: "Logo of Chatter",
-        imageSrc: aghLogo,
+        imageSrc: chatterLogo,
         text: "ChatGPT-powered chatbot",
         text2: "React.js, Python (FastAPI + Flask)",
         title: "Chatter",
@@ -108,7 +114,7 @@ export const projectCards: CardProps[] = [
         href: "http://67.207.78.202",
         icon: <CircleHelp size={50}/>,
         imageAlt: "Logo of Cursum",
-        imageSrc: aghLogo,
+        imageSrc: cursumLogo,
         text: "A minimal quizz web app",
         text2: "React.js, Nginx",
         title: "Cursum",
