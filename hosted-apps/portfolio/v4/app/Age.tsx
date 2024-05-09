@@ -22,13 +22,13 @@ export const Age = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [birthDate]);
 
   return (
     <span className="text-gray-500 font-medium text-xl font-mono">
-      Alive for {duration.years()} years {duration.months()} months {duration.weeks()}{" "}
-      weeks {duration.days()} days {duration.hours()} hours {duration.minutes()}{" "}
-      minutes{" and "}
+      Alive for {duration.years()} years {duration.months()} months{" "}
+      {duration.weeks()} weeks {duration.days()} days {duration.hours()} hours{" "}
+      {duration.minutes()} minutes{" and "}
       <span className="w-10">
         {duration.seconds().toString().padStart(2, "0")}
       </span>{" "}
