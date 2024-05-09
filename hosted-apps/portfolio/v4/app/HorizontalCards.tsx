@@ -14,7 +14,7 @@ export const HorizontalCards = ({ cards, title }: HorizontalCardsProps) => {
         <span className="opacity-85">{title}</span>
         <div className="bg-black h-1 w-full opacity-30 rounded-lg"></div>
       </div>
-      <div className="flex gap-5 overflow-hidden p-4">
+      <div className="flex gap-5 overflow-x-auto p-4">
         {cards &&
           cards.map((card, index) => {
             return <Card {...card} key={randomUUID()} />;
