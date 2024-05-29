@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=dupa
+      - MYSQL_PASSWORD=dupa
+      - MYSQL_DATABASE=db
+      - MYSQL_HOST=0.0.0.0
+      - MYSQL_PORT=3306
+    volumes:
+    - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+
