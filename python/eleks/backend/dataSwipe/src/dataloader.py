@@ -4,8 +4,8 @@ import torchvision.datasets as dset
 import torchvision.transforms as transforms
 
 
-def get_dataloader():
-    return DataLoader(get_dataset(), batch_size=1, num_workers=1)
+def get_dataloader(batch_size=1):
+    return DataLoader(get_dataset(), batch_size=batch_size, num_workers=1)
 
 
 def get_dataset(image_size=32):

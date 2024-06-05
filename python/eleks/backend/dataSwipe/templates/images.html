@@ -1,16 +1,7 @@
 {% extends 'index.html' %}
 
+{% load custom_tags %}
+
 {% block images %}
-  <form hx-ext="path_params" id="form" class="flex gap-8 absolute top-50 left-50">
-    {% csrf_token %}
-    {% for image in images %}
-      <div class="flex flex-col justify-center items-center gap-4">
-        <img src="data:image/jpeg;base64,{{ image.image_base64 }}" class="h-56 border-2 border-white rounded-md outline outline-2 outline-white hover:scale-[2] hover:z-50" alt="Image" type="image" />
-        <div class="flex w-full gap-2 h-10 font-medium">
-          <input type="submit" value="Pass ☢️" class="border-red-700 bg-white flex-grow border rounded-md hover:scale-105 active:bg-white hover:bg-red-700 hover:text-white cursor-pointer" />
-          <input type="submit" value="Smash 👍" hx-swap="outerHTML" hx-target="#form" hx-post="/" hx-vals="{{ image.meta }}" class="text-white bg-blue-600 flex-grow border rounded-md hover:scale-105 active:bg-white hover:bg-blue-700 cursor-pointer" />
-        </div>
-      </div>
-    {% endfor %}
-  </form>
+  {% render_image_form images %}
 {% endblock %}
