@@ -1,0 +1,20 @@
+{% load custom_tags %}
+
+<form hx-ext="path_params" name="form" id="form" class="flex flex-col items-center gap-8 absolute top-50 left-50">
+  {% csrf_token %}
+  <div class="flex gap-8 flex-wrap">
+    {% for image in images.entries %}
+      {% render_image_form image %}
+    {% endfor %}
+  </div>
+  <input
+    type="submit"
+    value="Smash them all 👍"
+    hx-swap="outerHTML"
+    hx-target="#form"
+    hx-post="/smash_image_batch"
+    hx-vals="{{ images.meta }}"
+    hx-include="{% for image in images.entries %}[name='hiddenInput{{ image.offset }}'],{% endfor %}[name='form']"
+    class="text-white bg-blue-600 rounded-md hover:scale-105 active:bg-white hover:bg-blue-700 cursor-pointer w-1/2 h-20 text-2xl"
+  />
+</form>
