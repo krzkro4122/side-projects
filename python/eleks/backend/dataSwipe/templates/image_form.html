@@ -12,6 +12,7 @@
       type="submit"
       value="Pass ☢️"
       hx-swap="outerHTML"
+      hx-vals="{{ image.meta }}"
       hx-target="#imageForm{{ image.offset }}"
       hx-post="/pass_image"
       class="bg-white flex-grow rounded-md hover:scale-105 active:bg-white hover:bg-red-700 hover:text-white cursor-pointer"
