@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/krzkro4122/goopher/db"
+	"github.com/krzkro4122/goopher/db/sqlite"
 	"github.com/krzkro4122/goopher/model"
 	"github.com/lestrrat-go/jwx/jwk"
 )

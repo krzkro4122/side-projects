@@ -9,12 +9,12 @@
   </div>
   <input
     type="submit"
-    value="Smash them all 👍"
+    value="Like them all 👍"
     hx-swap="outerHTML"
     hx-target="#form"
     hx-post="/smash_image_batch"
     hx-vals="{{ images.meta }}"
     hx-include="{% for image in images.entries %}[name='hiddenInput{{ image.offset }}'],{% endfor %}[name='form']"
-    class="text-white bg-blue-600 rounded-md hover:scale-105 active:bg-white hover:bg-blue-700 cursor-pointer w-1/2 h-20 text-2xl"
+    class="text-white bg-blue-600 rounded-md hover:scale-105 active:bg-white hover:bg-blue-700 cursor-pointer w-max px-8 h-20 text-2xl"
   />
 </form>
