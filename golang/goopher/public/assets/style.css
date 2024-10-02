@@ -1,0 +1,8 @@
+article {
+    display: grid;
+    place-content: center;
+}
+
+#main-heading {
+    font-size: 5rem;
+}

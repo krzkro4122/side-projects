@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/krzkro4122/goopher/route"
+	"github.com/krzkro4122/goopher/router"
 )
 
-func get_env(env, def string) string {
-	value, exists := os.LookupEnv(env)
+func get_env(name, defaultValue string) string {
+	value, exists := os.LookupEnv(name)
 	if exists {
 		return value
 	} else {
-		return def
+		return defaultValue
 	}
 }
 
@@ -23,5 +23,5 @@ func main() {
 	address := fmt.Sprintf("%s:%s", host, port)
 
 	fmt.Printf("Running the server on: http://%s\n", address)
-	route.Serve(address)
+	router.Serve(address)
 }

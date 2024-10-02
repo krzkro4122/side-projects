@@ -1,10 +1,6 @@
-package route
+package router
 
 import (
-	"fmt"
-	"os"
-	"os/signal"
-
 	"github.com/krzkro4122/goopher/controller"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -18,19 +14,23 @@ func define_endpoints(e *echo.Echo) {
 	// Authentication
 	e.POST("/login", controller.Login)
 	e.POST("/register", controller.Register)
+
+	// Websocket
+	e.GET("/ws", controller.Chat)
 }
 
-func Serve(address string) {
-	e := echo.New()
+func apply_middleware(e *echo.Echo) {
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+}
+
+func Serve(address string) {
+	e := echo.New()
+	apply_middleware(e)
 	define_endpoints(e)
-	e.Logger.Fatal(e.Start(fmt.Sprintf("%s", address)))
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	go func() {
-		e.Close()
-	}()
+	e.Logger.Fatal(e.Start(address))
 }
