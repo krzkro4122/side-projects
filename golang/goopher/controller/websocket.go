@@ -30,7 +30,7 @@ func Chat(c echo.Context) error {
 
 		// Write
 		outgoing.message = fmt.Sprintf(
-			"[SERVER] Hello, Client!, you said: %s\n",
+			"[SERVER] Hello, Client!, you said: %v\n",
 			incoming.message,
 		)
 		err = ws.WriteJSON(&outgoing)
