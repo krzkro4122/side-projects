@@ -4,28 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jebac przemka 😩</title>
+    <title>Jebać przemka 😩</title>
+
     <link rel="stylesheet" href="assets/style.css">
+    <script defer src="assets/index.js"></script>
 </head>
 
 <body>
-    <nav>
-        <header>
+    <header>
+        <nav>
 
-        </header>
-    </nav>
+        </nav>
+        <div>
+            <span id="websocket-status" aria-label="Websocket disconnected">🔴 Disconnected</span>
+        </div>
+    </header>
+
     <main>
         <article>
             <h1 id="main-heading">Hello there!</h1>
-            <p id="output"></p>
+            <div id="chat"></div>
+            <button onclick="javascript: sendMessage()">Send message</button>
         </article>
     </main>
-    <nav>
-        <footer>
 
-        </footer>
-    </nav>
-    <script defer src="assets/index.js"></script>
+    <footer>
+        <nav>
+
+        </nav>
+    </footer>
 </body>
 
 </html>
