@@ -1,24 +1,35 @@
-var location = window.location;
 var uri = 'ws:';
 
-if (location.protocol === 'https:') {
+if (window.location.protocol === 'https:') {
     uri = 'wss:';
 }
-uri += '//' + location.host;
-uri += location.pathname + 'ws';
+uri += '//' + window.location.host;
+uri += window.location.pathname + 'ws';
 
 console.log(`Connecting to a websocket on ${uri}...`)
-ws = new WebSocket(uri)
+var ws;
 
-ws.onopen = function () {
-    console.log('Connected')
-}
+ws = new WebSocket(uri);
+// if (!ws || ws.readyState === WebSocket.CLOSED) {
+// }
 
-ws.onmessage = function (event) {
-    var output = document.getElementById('output');
-    output.innerHTML += event.data + '<br>';
-}
+// if (ws && ws.readyState === WebSocket.OPEN) {
 
-setInterval(function () {
-    ws.send('Hello, Server!');
-}, 1000);
+    console.log(`Connected to websocket on ${uri}!`)
+    ws.onopen = function () {
+        console.log('Connected')
+    }
+
+    ws.onmessage = function (event) {
+        if (ws.readyState === WebSocket.OPEN) {
+            var output = document.getElementById('output');
+            output.innerHTML += event.data + '<br>';
+        }
+    }
+
+    setInterval(function () {
+        if (ws.readyState === WebSocket.OPEN) {
+            ws.send('Hello, Server!');
+        }
+    }, 1000);
+// }
