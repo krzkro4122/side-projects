@@ -9,7 +9,6 @@
 
 article {
     display: grid;
-    gap: 0.2rem;
     place-content: center;
     background-color: #333333;
     height: 80dvh;

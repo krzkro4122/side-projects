@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/krzkro4122/goopher/controller"
+	"github.com/krzkro4122/hermes/controller"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
