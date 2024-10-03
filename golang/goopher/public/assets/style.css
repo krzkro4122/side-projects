@@ -1,17 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
 article {
     display: grid;
+    gap: 0.2rem;
     place-content: center;
     background-color: gray;
+    height: 80dvh;
+    color: white;
+}
+
+header,
+footer {
+    height: 6dvh;
+    padding: 2dvh;
 }
 
 #main-heading {
     font-size: 5rem;
 }
 
-#chat {
-    height: 20 rem;
+#message-history {
+    height: 30rem;
+    display: flex;
+    flex-flow: column-reverse;
+    overflow: scroll;
+
+    .message {
+        width: fit-content;
+        border: 1px black solid;
+        border-radius: 0.5rem;
+        padding: 0.2rem;
+    }
+
+    .my-message {
+        background-color: white;
+        color: black;
+        align-self: flex-end;
+    }
 }
 
-p {
 
+form {
+    padding-top: 0.5rem;
+    display: flex;
+
+    input {
+        padding: 0.2rem;
+        border-radius: 0.4rem;
+        border: 1px solid black;
+        flex-grow: 1;
+    }
+
+    #submit {
+        background-color: blueviolet;
+        border: 1px black solid;
+        border-radius: 0.5rem;
+        padding: 0.2rem;
+        color: white;
+    }
+}
+
+
+
+p {
+    background-color: blueviolet;
+    display: block;
 }
