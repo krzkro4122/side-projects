@@ -2,32 +2,35 @@ package controller
 
 import (
 	"fmt"
-	"time"
 
+	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
-	"golang.org/x/net/websocket"
 )
 
+var upgrader = websocket.Upgrader{
+	// ReadBufferSize:  1024,
+	// WriteBufferSize: 1024,
+}
+
 func Chat(c echo.Context) error {
-	websocket.Handler(func(ws *websocket.Conn) {
-		defer ws.Close()
-		for {
-			// Write
-			err := websocket.Message.Send(ws, "Hello, Client!")
-			if err != nil {
-				c.Logger().Error(err)
-			}
+	ws, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
+	if err != nil {
+		return err
+	}
+	defer ws.Close()
 
-			// Read
-			msg := ""
-			err = websocket.Message.Receive(ws, &msg)
-			if err != nil {
-				c.Logger().Error(err)
-			}
-			fmt.Printf("%s\n", msg)
-
-			time.Sleep(1000 * 1000)
+	for {
+		// Write
+		err := ws.WriteMessage(websocket.TextMessage, []byte("Hello, Client!"))
+		if err != nil {
+			c.Logger().Error(err)
 		}
-	}).ServeHTTP(c.Response(), c.Request())
-	return nil
+
+		// Read
+		_, msg, err := ws.ReadMessage()
+		if err != nil {
+			c.Logger().Error(err)
+		}
+		fmt.Printf("%s\n", msg)
+	}
 }
