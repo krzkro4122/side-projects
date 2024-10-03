@@ -4,7 +4,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/krzkro4122/goopher/model"
+	"github.com/krzkro4122/hermes/model"
 )
 
 // Connect to db with gorm

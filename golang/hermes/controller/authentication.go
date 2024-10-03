@@ -12,8 +12,8 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/krzkro4122/goopher/db/sqlite"
-	"github.com/krzkro4122/goopher/model"
+	db "github.com/krzkro4122/hermes/db/sqlite"
+	"github.com/krzkro4122/hermes/model"
 	"github.com/lestrrat-go/jwx/jwk"
 )
 

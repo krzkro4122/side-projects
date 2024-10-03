@@ -1,4 +1,4 @@
-module github.com/krzkro4122/goopher
+module github.com/krzkro4122/hermes
 
 go 1.20
 
@@ -36,4 +36,4 @@ require (
 	golang.org/x/time v0.3.0 // indirect
 )
 
-replace github.com/krzkro4122/goopher v0.0.0 => ./
+replace github.com/krzkro4122/hermes v0.0.0 => ./
