@@ -11,7 +11,7 @@ article {
     display: grid;
     gap: 0.2rem;
     place-content: center;
-    background-color: gray;
+    background-color: #333333;
     height: 80dvh;
     color: white;
 }
@@ -22,6 +22,14 @@ footer {
     padding: 2dvh;
 }
 
+#websocket-container {
+    width: fit-content;
+    background-color: white;
+    border: 1px black solid;
+    border-radius: 0.2rem;
+    padding: 0.5rem;
+}
+
 #main-heading {
     font-size: 5rem;
 }
@@ -30,7 +38,8 @@ footer {
     height: 30rem;
     display: flex;
     flex-flow: column-reverse;
-    overflow: scroll;
+    background-color: #222222;
+    overflow-y: auto;
 
     .message {
         width: fit-content;
@@ -48,21 +57,20 @@ footer {
 
 
 form {
-    padding-top: 0.5rem;
     display: flex;
 
     input {
-        padding: 0.2rem;
-        border-radius: 0.4rem;
+        padding: 0.3rem;
+        border-bottom-left-radius: 0.4rem;
         border: 1px solid black;
         flex-grow: 1;
     }
 
     #submit {
         background-color: blueviolet;
+        border-bottom-right-radius: 0.4rem;
         border: 1px black solid;
-        border-radius: 0.5rem;
-        padding: 0.2rem;
+        padding: 0.3rem;
         color: white;
     }
 }
