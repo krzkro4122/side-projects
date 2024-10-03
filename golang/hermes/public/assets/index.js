@@ -24,6 +24,9 @@ ws.onmessage = function (event) {
     receiveMessage(event.data)
 }
 
+/**
+ * @param {string} message - Message to send
+ */
 const receiveMessage = (message) => {
     console.log(`[WS] Receiving message: "${message}"...`);
     if (ws.readyState === WebSocket.OPEN) {
@@ -31,13 +34,19 @@ const receiveMessage = (message) => {
     }
 }
 
+/**
+ * @param {string} message - Message to send
+ */
 export const sendMessage = (message) => {
-    console.log(`[WS] Sending message: "${message}"...`);
+    const payload = JSON.stringify({ message: message })
+    console.log(`[WS] Sending message: "${payload}"...`);
     if (ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify({ message: message }));
+        ws.send(payload);
         addMessageToDom(message, true)
     }
 }
 
 // Form
-export const submitForm = () => submitForm(submitFormInDom)
+export function submitForm() {
+    submitFormInDom(sendMessage)
+}
