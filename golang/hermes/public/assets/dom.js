@@ -1,8 +1,11 @@
 const websocketStatus = document.querySelector("#websocket-status")
 const messageHistory = document.querySelector('#message-history');
-const form = document.querySelector("#message-form");
 const input = document.querySelector("#message");
 
+
+/**
+ * @param {string} statusName - name of the status to change the websocket to. Pick from ['connecting', 'connected', 'disconnecting']
+ */
 export const changeWebsocketStatusTo = (statusName) => {
     switch (statusName) {
         case "connecting":
@@ -21,6 +24,11 @@ export const changeWebsocketStatusTo = (statusName) => {
 
 }
 
+
+/**
+ * @param {string} message - Message to send
+ * @param {boolean} isFromMe - Am i the sender?
+ */
 export const addMessageToDom = (message, isFromMe) => {
     const messageElement = document.createElement('p')
 
@@ -34,21 +42,13 @@ export const addMessageToDom = (message, isFromMe) => {
 }
 
 
+/**
+ * @param {CallableFunction} callback - callback to run when adding the message to DOM
+ */
 export const submitFormInDom = (callback) => {
     const data = input.value
     if (input.value !== "") {
         callback(data)
+        input.value = "";
     }
 }
-
-document.addEventListener('keypress', (event) => {
-    const enterCode = 13;
-    if (event.key === 'Enter') {
-        form.submit()
-    }
-})
-
-form.addEventListener("submit", (event) => {
-    event.preventDefault()
-    submitForm()
-});

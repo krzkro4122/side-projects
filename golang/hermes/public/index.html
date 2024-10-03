@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="assets/style.css">
     <link rel="shortcut icon" href="assets/favicon.jpg" type="image/jpg">
     <script defer type="module" src="assets/index.js"></script>
+    <script defer type="module" src="assets/dom.js"></script>
+    <script defer type="module" src="assets/listeners.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +20,7 @@
 
 <body>
     <header>
+        <h1>Hermes ⚚</h1>
         <div id="websocket-container" aria-labelledby="websocket-status">
             <span id="websocket-status" aria-label="Websocket disconnected">🔴 Disconnected</span>
         </div>
@@ -25,7 +28,6 @@
 
     <main>
         <article>
-            <h1 id="main-heading">Hello there!</h1>
             <main id="message-history"></main>
             <form id="message-form">
                 <input autofocus type="text" name="message" id="message" placeholder="Pour your heart out ❤️" value="">
@@ -33,10 +35,6 @@
             </form>
         </article>
     </main>
-
-    <footer>
-
-    </footer>
 </body>
 
 </html>
