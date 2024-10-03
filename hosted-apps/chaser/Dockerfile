@@ -9,8 +9,6 @@ COPY package.json ./
 
 RUN npm update && npm install
 
-# RUN yarn install &&  yarn upgrade
-
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -26,17 +24,14 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/out ./
 
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+RUN npm install serve@latest
 
 USER nextjs
 
-EXPOSE 3000
+EXPOSE 5009
 
-ENV PORT 3000
+ENV PORT 5009
 
-CMD ["node", "server.js"]
+CMD ["npx", "serve@latest", "."]
