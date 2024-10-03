@@ -1,8 +1,17 @@
 article {
     display: grid;
     place-content: center;
+    background-color: gray;
 }
 
 #main-heading {
     font-size: 5rem;
+}
+
+#chat {
+    height: 20 rem;
+}
+
+p {
+
 }
