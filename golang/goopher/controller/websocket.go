@@ -16,24 +16,24 @@ func Chat(c echo.Context) error {
 	}
 	defer ws.Close()
 
+	var incoming, outgoing struct {
+		message string
+	}
+
 	for {
 		// Read
-		_, msg, err := ws.ReadMessage()
+		err := ws.ReadJSON(&incoming)
 		if err != nil {
 			c.Logger().Error(err)
 		}
-		fmt.Printf("%s\n", msg)
+		fmt.Printf("%v\n", incoming)
 
 		// Write
-		err = ws.WriteMessage(
-			websocket.TextMessage,
-			[]byte(
-				fmt.Sprintf(
-					"[SERVER] Hello, Client!, you said: %s\n",
-					msg,
-				),
-			),
+		outgoing.message = fmt.Sprintf(
+			"[SERVER] Hello, Client!, you said: %s\n",
+			incoming.message,
 		)
+		err = ws.WriteJSON(&outgoing)
 		if err != nil {
 			c.Logger().Error(err)
 		}

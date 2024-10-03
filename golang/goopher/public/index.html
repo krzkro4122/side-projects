@@ -8,14 +8,16 @@
 
     <link rel="stylesheet" href="assets/style.css">
     <script defer src="assets/index.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <nav>
-
-        </nav>
-        <div>
+        <div aria-labelledby="websocket-status">
             <span id="websocket-status" aria-label="Websocket disconnected">🔴 Disconnected</span>
         </div>
     </header>
@@ -23,15 +25,16 @@
     <main>
         <article>
             <h1 id="main-heading">Hello there!</h1>
-            <div id="chat"></div>
-            <button onclick="javascript: sendMessage()">Send message</button>
+            <main id="message-history"></main>
+            <form id="message-form">
+                <input autofocus type="text" name="message" id="message" placeholder="Pour your heart out ❤️" value="">
+                <button type="submit" name="submit" id="submit">Send</button>
+            </form>
         </article>
     </main>
 
     <footer>
-        <nav>
 
-        </nav>
     </footer>
 </body>
 
