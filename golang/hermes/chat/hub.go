@@ -1,8 +1,13 @@
 package chat
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/google/uuid"
+)
 
 type Hub struct {
+	id         uuid.UUID
 	clients    map[*Client]bool
 	broadcast  chan []byte
 	register   chan *Client
@@ -10,7 +15,10 @@ type Hub struct {
 }
 
 func NewHub() *Hub {
+	uuid := uuid.New()
+	log.Printf("[Hub@%v] 👶 New hub", uuid)
 	return &Hub{
+		id:         uuid,
 		clients:    map[*Client]bool{},
 		broadcast:  make(chan []byte),
 		register:   make(chan *Client),
@@ -18,28 +26,29 @@ func NewHub() *Hub {
 	}
 }
 
-func (h *Hub) run() {
+func (hub *Hub) Run() {
 	for {
 		select {
-		case client := <-h.register:
-			h.clients[client] = true
-			fmt.Printf("[Hub] ✅ Connected client:%v\n", client)
 
-		case client := <-h.unregister:
-			if _, ok := h.clients[client]; ok {
-				delete(h.clients, client)
+		case client := <-hub.register:
+			hub.clients[client] = true
+			log.Printf("[Hub@%v] ✅ Connected client: %v", hub.id, client.id)
+
+		case client := <-hub.unregister:
+			if _, ok := hub.clients[client]; ok {
+				delete(hub.clients, client)
 				close(client.send)
-				fmt.Printf("[Hub] ⛔ Disconnected client:%v\n", client)
+				log.Printf("[Hub@%v] ⛔ Disconnected client:%v", hub.id, client.id)
 			}
 
-		case message := <-h.broadcast:
-			fmt.Println("[Hub] Broadcasting: '%s\n'", message)
-			for client := range h.clients {
+		case message := <-hub.broadcast:
+			log.Printf("[Hub@%v] 🛜 Broadcasting: '%s'", hub.id, message)
+			for client := range hub.clients {
 				select {
 				case client.send <- message:
 				default:
 					close(client.send)
-					delete(h.clients, client)
+					delete(hub.clients, client)
 				}
 			}
 		}

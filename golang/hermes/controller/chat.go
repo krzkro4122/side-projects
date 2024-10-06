@@ -28,6 +28,5 @@ func Chat(hub *chat.Hub, c echo.Context) error {
 	go client.WriteFromHub()
 	go client.ReadToHub()
 
-	log.Printf("Gotit")
 	return nil
 }

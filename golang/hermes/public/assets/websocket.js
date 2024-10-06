@@ -28,31 +28,46 @@ ws.onclose = function () {
     changeWebsocketStatusTo("disconnected")
 }
 
+/**
+ * @typedef {Object} MessagePayload
+ * @property {string} Message - actual text message
+ * @property {string} ClientId - id of the message originator
+ */
+
+/**
+ * @param {MessageEvent} event - received message event
+ */
 ws.onmessage = function (event) {
-    receiveMessage(event.data.split('\n'))
+    receiveMessage(event.data)
 }
 
 /**
- * @param {string} messages - Message to send
+ * @param {string} rawMessage - received raw websocket data
  */
-const receiveMessage = (messages) => {
-    console.log(`[WS] Receiving messages: "${messages}"...`)
+const receiveMessage = (rawMessage) => {
     if (ws.readyState === WebSocket.OPEN) {
-        for (const message of messages) {
-            addMessageToDom(message, false)
-        }
+        /** @type {MessagePayload} */
+        const parsedMessage = JSON.parse(rawMessage)
+        console.log(parsedMessage);
+
+        addMessageToDom(parsedMessage)
+        console.log(`[WS] Received message: "${parsedMessage.Message}" from client: ${parsedMessage.ClientId}`)
     }
 }
 
 /**
- * @param {string} message - Message to send
+ * @param {string} text - text to send along with the message
  */
-export const sendMessage = (message) => {
-    const payload = JSON.stringify({ message: message })
+export const sendMessage = (text) => {
+    /** @type {MessagePayload} */
+    const message = {
+        Message: text,
+        ClientId: "",
+    }
+    const payload = JSON.stringify(message)
     console.log(`[WS] Sending message: "${payload}"...`)
     if (ws.readyState === WebSocket.OPEN) {
         ws.send(payload)
-        // addMessageToDom(message, true)
     }
 }
 

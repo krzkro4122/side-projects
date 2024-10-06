@@ -17,8 +17,10 @@ func define_endpoints(e *echo.Echo) {
 	e.POST("/register", controller.Register)
 
 	// Websocket
+	var hub = chat.NewHub()
+	go hub.Run()
 	e.GET("/ws", func(c echo.Context) error {
-		return controller.Chat(chat.NewHub(), c)
+		return controller.Chat(hub, c)
 	})
 }
 
