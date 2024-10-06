@@ -2,9 +2,11 @@ package chat
 
 import (
 	"bytes"
+	"encoding/json"
 	"log"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
 )
 
@@ -20,89 +22,109 @@ var (
 	space   = []byte{' '}
 )
 
-type logger struct {
-	channel chan string
+type Payload struct {
+	ClientId uuid.UUID
+	Message  string
 }
 
-func (l *logger) newLogger() *logger {
-	l.channel <-
+type HandshakePayload struct {
+	ClientId uuid.UUID
+	Message  string
 }
 
 type Client struct {
+	id         uuid.UUID
 	hub        *Hub
 	connection *websocket.Conn
 	send       chan []byte
+	incoming   *Payload
+	outgoing   *Payload
 }
 
 func (client *Client) Register() {
 	client.hub.register <- client
-	log.Printf("Registering client %v\n", client)
+	log.Printf("[Client@%v] ✅ Registered to hub: %v", client.id, client.hub.id)
 }
 
 func NewClient(hub *Hub, connection *websocket.Conn) *Client {
+	uuid := uuid.New()
+	log.Printf("[Client@%v] 👶 New client", uuid)
 	client := &Client{
+		id:         uuid,
 		hub:        hub,
 		connection: connection,
 		send:       make(chan []byte, 256),
+		incoming:   &Payload{ClientId: uuid},
+		outgoing:   &Payload{ClientId: uuid},
 	}
 	return client
 }
 
-func (c *Client) ReadToHub() {
+func (client *Client) ReadToHub() {
 	defer func() {
-		c.hub.unregister <- c
-		c.connection.Close()
+		client.hub.unregister <- client
+		client.connection.Close()
+		log.Printf("[Client@%v] ⛔ Unregistered from hub: %v\n", client.id, client.hub.id)
 	}()
 
-	c.connection.SetReadLimit(maxMessageSize)
-	c.connection.SetReadDeadline(time.Now().Add(pongWait))
-	c.connection.SetPongHandler(func(string) error {
-		c.connection.SetReadDeadline(time.Now().Add(pongWait))
+	client.connection.SetReadLimit(maxMessageSize)
+	client.connection.SetReadDeadline(time.Now().Add(pongWait))
+	client.connection.SetPongHandler(func(string) error {
+		client.connection.SetReadDeadline(time.Now().Add(pongWait))
 		return nil
 	})
 
 	for {
-		_, message, err := c.connection.ReadMessage()
-		log.Printf("Got: %v\n", message)
-
+		_, message, err := client.connection.ReadMessage()
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
-				log.Printf("error: %v", err)
+				log.Printf("[Client@%v] ReadMessage error: %v", client.id, err)
 			}
 		}
+		log.Printf("[Client@%v] 📥 Got: %s", client.id, message)
+
+		err = json.Unmarshal(message, client.incoming)
+		if err != nil {
+			log.Printf("[Client@%v] Unmarshal error: %v", client.id, err)
+			continue
+		}
+
+		log.Printf("[Client@%v] 📥 Got: %s from %s", client.id, client.incoming.Message, client.incoming.ClientId)
+
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
-		c.hub.broadcast <- message
+		client.hub.broadcast <- message
 	}
 }
 
-func (c *Client) WriteFromHub() {
+func (client *Client) WriteFromHub() {
 	ticker := time.NewTicker(pingPeriod)
 	defer func() {
 		ticker.Stop()
-		c.connection.Close()
+		client.connection.Close()
 	}()
 
 	for {
 		select {
-		case message, ok := <-c.send:
-			c.connection.SetWriteDeadline(time.Now().Add(writeWait))
+		case message, ok := <-client.send:
+			client.connection.SetWriteDeadline(time.Now().Add(writeWait))
 			if !ok {
 				// hub closed the channel
-				c.connection.WriteMessage(websocket.CloseMessage, []byte{})
+				client.connection.WriteMessage(websocket.CloseMessage, []byte{})
 				return
 			}
 
-			w, err := c.connection.NextWriter(websocket.TextMessage)
+			w, err := client.connection.NextWriter(websocket.TextMessage)
 			if err != nil {
 				return
 			}
-			w.Write((message))
+			log.Printf("[Client@%v] 📤 Sending: %s", client.id, message)
+			w.Write(message)
 
 			// Add queued chat messages to the current websocket message
-			n := len(c.send)
+			n := len(client.send)
 			for i := 0; i < n; i++ {
 				w.Write(newline)
-				w.Write(<-c.send)
+				w.Write(<-client.send)
 			}
 
 			if err := w.Close(); err != nil {
@@ -110,8 +132,8 @@ func (c *Client) WriteFromHub() {
 			}
 
 		case <-ticker.C:
-			c.connection.SetWriteDeadline(time.Now().Add(writeWait))
-			if err := c.connection.WriteMessage(websocket.PingMessage, nil); err != nil {
+			client.connection.SetWriteDeadline(time.Now().Add(writeWait))
+			if err := client.connection.WriteMessage(websocket.PingMessage, nil); err != nil {
 				return
 			}
 		}
