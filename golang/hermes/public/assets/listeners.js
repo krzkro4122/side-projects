@@ -1,4 +1,4 @@
-import { submitForm } from "./index.js";
+import { submitForm } from "./websocket.js";
 
 const form = document.querySelector("#message-form");
 
