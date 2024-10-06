@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/krzkro4122/hermes/chat"
 	"github.com/krzkro4122/hermes/controller"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -16,11 +17,13 @@ func define_endpoints(e *echo.Echo) {
 	e.POST("/register", controller.Register)
 
 	// Websocket
-	e.GET("/ws", controller.Chat)
+	e.GET("/ws", func(c echo.Context) error {
+		return controller.Chat(chat.NewHub(), c)
+	})
 }
 
 func apply_middleware(e *echo.Echo) {
-	e.Use(middleware.Logger())
+	// e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 }
 
