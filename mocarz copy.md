@@ -1,3 +1,26 @@
+# Symulacje Monte Carlo i superkomputery
+
+## 24. Etapy algorytmu Metropolisa dla modelu Isinga.
+
+Algorytm Metropolisa dla modelu Isinga stosowany jest do symulacji układów spinowych. Etapy obejmują: losowy wybór spina, obliczenie zmiany energii wynikającej z jego odwrócenia, a następnie akceptację lub odrzucenie zmiany na podstawie kryterium Metropolisa, co pozwala na badanie stanów równowagowych.
+
+## 25. Omówić znaczenie warunku równowagi szczegółowej.
+
+Warunek równowagi szczegółowej (detailed balance) oznacza, że w układzie termodynamicznym, w stanie równowagi, prawdopodobieństwo przejścia między dwoma stanami jest symetryczne. W symulacjach Monte Carlo zapewnia on poprawność generowanych rozkładów stacjonarnych.
+
+## 26. Omówić dwie spośród następujących metod szacowania błędów statystycznych: naiwne odchylenie standardowe, jackknife, bootstrap, uwzględnienie autokorelacji.
+
+Metoda jackknife polega na wielokrotnym usuwaniu pojedynczych obserwacji z zestawu danych i obliczaniu estymatorów na podstawie pozostałych danych, co pozwala oszacować wariancję estymatora. Z kolei metoda bootstrap polega na losowym próbkowaniu z powtórzeniami, co umożliwia symulację rozkładów estymatorów w celu wyznaczenia ich niepewności.
+
+## 34. Proszę wymienić wartości Manifestu Agile
+
+Manifest Agile promuje cztery kluczowe wartości:
+
+1. Ludzie i interakcje ponad procesy i narzędzia.
+2. Działające oprogramowanie ponad obszerną dokumentację.
+3. Współpraca z klientem ponad negocjację umów.
+4. Reagowanie na zmiany ponad realizację założonego planu.
+
 # Metody statystyczne
 
 ## 37. Modele z ukrytym procesem Markowa - definicja i zastosowanie. Ogólna zasada działania algorytmu Viterbiego.
