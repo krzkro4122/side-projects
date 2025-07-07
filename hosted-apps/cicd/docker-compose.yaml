@@ -23,7 +23,11 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+    # This entrypoint is for automatic renewals and is correct
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    # This sysctl block is necessary to fix the IPv6 issue
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
 
   goofy-slider:
     image: layor/goofy-slider:latest
