@@ -30,8 +30,6 @@ RUN npm install serve@latest
 
 USER nextjs
 
-EXPOSE 5004
-
 ENV PORT 5004
 
-CMD ["npx", "serve@latest", "-p", "5004", "."]
+CMD ["npx", "serve@latest", "-p", "$PORT", "."]

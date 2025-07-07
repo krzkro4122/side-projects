@@ -10,6 +10,6 @@ COPY static /app/static
 COPY templates /app/templates
 COPY main.py /app
 
-EXPOSE 5000
+EXPOSE 5005
 
 CMD ["python3", "main.py"]
