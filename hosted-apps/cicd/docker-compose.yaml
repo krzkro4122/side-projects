@@ -37,24 +37,24 @@ services:
 
   # todo:
   #   image: layor/todo:latest
-  #   container_name: todo_app
+  #   container_name: todo
   #   expose:
   #     - "5002"
 
   cursum:
     image: layor/cursum:latest
-    container_name: cursum_app
+    container_name: cursum
     expose:
       - "5003:80"
 
   moomin-chaser:
     image: layor/moomin-chaser:latest
-    container_name: moomin_chaser_app
+    container_name: moomin_chaser
     expose:
       - "5004"
 
   tic-tac-toe:
     image: layor/tic-tac-toe:latest
-    container_name: tic_tac_toe_app
+    container_name: tic_tac_toe
     expose:
       - "5005"

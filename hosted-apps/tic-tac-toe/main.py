@@ -8,5 +8,10 @@ def hello_world():
     url_for('static', filename='style.css')
     return render_template('index.html')
 
+@app.route("/tic-tac-toe")
+def tic_tac_toe():
+    url_for('static', filename='style.css')
+    return render_template('index.html')
+
 
 app.run(host='0.0.0.0', port=5005)

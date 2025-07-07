@@ -11,4 +11,6 @@ COPY *.html /app
 COPY *.ico /app
 COPY *.css /app
 
+EXPOSE 5001
+
 CMD [ "node", "server.js" ]

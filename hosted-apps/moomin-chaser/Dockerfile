@@ -32,4 +32,6 @@ USER nextjs
 
 ENV PORT 5004
 
+EXPOSE 5004
+
 CMD ["npx", "serve@latest", "-p", "$PORT", "."]
