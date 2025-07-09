@@ -26,7 +26,7 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/out ./
 
-RUN npm install serve@latest
+RUN npm install serve
 
 USER nextjs
 
@@ -34,4 +34,4 @@ ENV PORT 5004
 
 EXPOSE 5004
 
-CMD ["npx", "serve@latest", "-p", "$PORT", "."]
+CMD ["npm", "exec", "-c", "serve -p $PORT ."]

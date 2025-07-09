@@ -2,7 +2,7 @@
 const nextConfig = {
     output: "export",
   basePath: "/nextjs-github-pages",
-  assetPrefix: "/",
+  assetPrefix: "/moomin-chaser/",
   images: {
     unoptimized: true,
   },

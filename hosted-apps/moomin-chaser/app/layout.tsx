@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Add the webp favicon */}
-        <link rel="icon" href="/littleMy.webp" type="image/webp" />
+        <link rel="icon" href="/moomin-chaser/littleMy.webp" type="image/webp" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

@@ -5,10 +5,8 @@ export interface MoominImageProps {
     imageSrc: string | StaticImageData;
 }
 
-export const publicPrefix =
-    process.env.NODE_ENV === "development" ? "@/public" : "";
-
-export const moominPrefix = publicPrefix + "/moomins"
+export const publicPrefix = process.env.NODE_ENV === "development" ? "@/public" : "";
+export const moominPrefix = publicPrefix + "/moomin-chaser/moomins"
 
 export const moominImages: MoominImageProps[] = [
     {
