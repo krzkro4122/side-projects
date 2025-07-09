@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run dev && npx serve@latest -p 5004 ./out/",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -21,6 +21,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.11",
     "postcss": "^8.4.45",
+    "serve": "^14.2.4",
     "tailwindcss": "^3.4.11",
     "typescript": "^5"
   }
