@@ -10,11 +10,11 @@ build_and_push() {
 }
 
 images_to_build=(
-    "goofy-slider"
+    # "goofy-slider"
     # "todo"
     "cursum"
-    "moomin-chaser"
-    "tic-tac-toe"
+    # "moomin-chaser"
+    # "tic-tac-toe"
 )
 
 for image in "${images_to_build[@]}"; do
