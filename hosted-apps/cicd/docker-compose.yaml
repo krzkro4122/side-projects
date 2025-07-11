@@ -44,7 +44,7 @@ services:
   cursum:
     image: layor/cursum:latest
     container_name: cursum
-    expose:
+    ports:
       - "5003:80"
 
   moomin-chaser:
