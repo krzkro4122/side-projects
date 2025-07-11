@@ -14,7 +14,7 @@ function CourseCard({ course }: courseInfo) {
         border: `solid 0.2rem var(--accent-color)`,
       }}
     >
-      <Link to={`/course/${course.id}/tasks`}>
+      <Link to={`/cursum/course/${course.id}/tasks`}>
         <img
           className="browserCardImage"
           src={course.imageSrc}

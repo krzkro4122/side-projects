@@ -6,6 +6,8 @@ import LightningLogo from "assets/lightningDynamic.svg";
 
 import "styles/Header.css";
 
+const rootPath = "/cursum";
+
 function Header() {
   const { unsetUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ function Header() {
   function logOut() {
     console.log("logging out...");
     unsetUser();
-    navigate("/");
+    navigate(rootPath);
   }
 
   if (!user) {
@@ -28,16 +30,16 @@ function Header() {
         <h2 className="score">Score: {user?.score}</h2>
       </div>
       <div className="navigation">
-        <Link className="link" to={`/`}>
+        <Link className="link" to={`${rootPath}`}>
           Leagues
         </Link>
         <Link
           className={user?.leagueId ? "link" : "link disabled"}
-          to={`/league/${user?.leagueId}/courses`}
+          to={`${rootPath}/league/${user?.leagueId}/courses`}
         >
           Courses
         </Link>
-        <Link className="link" to={`/scoreboard`}>
+        <Link className="link" to={`${rootPath}/scoreboard`}>
           Scoreboard
         </Link>
       </div>

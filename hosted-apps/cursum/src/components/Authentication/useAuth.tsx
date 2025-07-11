@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 import { AuthContext } from "./AuthProvider";
 
-export function useGuard(element: ReactElement, path: string = "/login") {
+export function useGuard(element: ReactElement, path: string = "/cursum/login") {
   const { user } = useContext(AuthContext);
   // console.log(user);
   if (!user) {
@@ -14,7 +14,7 @@ export function useGuard(element: ReactElement, path: string = "/login") {
   }
 }
 
-export function usePermit(element: ReactElement, path: string = "/") {
+export function usePermit(element: ReactElement, path: string = "/cursum/") {
   const { user } = useContext(AuthContext);
   // console.log(user);
   if (user) {

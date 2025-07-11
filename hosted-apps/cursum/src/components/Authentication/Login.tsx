@@ -8,6 +8,8 @@ import { usePermit } from "./useAuth";
 import "styles/Auth.css";
 import { Email, Password } from "helpers/types";
 
+const rootPath = "/cursum";
+
 function Login() {
   const [email, setEmail] = useState<Email>();
   const [password, setPassword] = useState<Password>();
@@ -61,9 +63,14 @@ function Login() {
             <button id="submit" className="button" type="submit">
               Log in
             </button>
-            <Link id="re-route" className="button" to="/register">
+            <Link id="re-route" className="button" to={`${rootPath}/register`}>
               Register
             </Link>
+          </div>
+          <div className="buttons">
+            <button id="submit-guest" className="button guest-button" onClick={() => loginAndSetUser("guest@cursum.com", "guest")}>
+              Log in as guest
+            </button>
           </div>
         </form>
       </div>
