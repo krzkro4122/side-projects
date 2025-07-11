@@ -45,7 +45,7 @@ services:
     image: layor/cursum:latest
     container_name: cursum
     expose:
-      - "5003"
+      - "5003:80"
 
   moomin-chaser:
     image: layor/moomin-chaser:latest
