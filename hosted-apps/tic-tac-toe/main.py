@@ -10,7 +10,7 @@ def hello_world():
 
 @app.route("/tic-tac-toe")
 def tic_tac_toe():
-    url_for('static', filename='style.css')
+    url_for('static', filename='tic-tac-toe/style.css')
     return render_template('index.html')
 
 
