@@ -13,6 +13,7 @@ export const App = () => {
 
   const addTodo = async (todo: TodoBase) => {
     const newTodo = await postTodo(todo);
+    console.log(newTodo);
     if (newTodo) {
       setTodos([...todos, newTodo]);
     }

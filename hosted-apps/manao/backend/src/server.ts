@@ -23,7 +23,7 @@ app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-app.use(['/api/todos', '/manao/api/todos'], todoRoutes);
+app.use(['/api/todo', '/manao/api/todo'], todoRoutes);
 
 app.get(['/api/healthcheck', '/manao/api/healthcheck'], (req, res) => {
   res.json({
@@ -58,7 +58,7 @@ app.use((error: Error, req: express.Request, res: express.Response, next: expres
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`📝 Todo API: http://localhost:${PORT}/api/todos`);
+  console.log(`📝 Todo API: http://localhost:${PORT}/api/todo`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 

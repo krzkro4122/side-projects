@@ -19,7 +19,7 @@ export const AddTodo = ({ addTodoAction }: AddTodoProps) => {
 
     return (
         <form id="addTodo" onSubmit={handleSubmit}>
-          <input id="input" form="addTodo" role="textbox" placeholder="New Todo" autoComplete="off" autoFocus></input>
+          <input id="input" form="addTodo" name="title" role="textbox" placeholder="New Todo" autoComplete="off" autoFocus></input>
           <button id="button" type="submit">+</button>
       </form>
     )

@@ -5,7 +5,7 @@ import { CreateTodoRequest, UpdateTodoRequest } from '../types/todo';
 const router = Router();
 
 /**
- * GET /api/todos - Get all todos
+ * GET /api/todo - Get all todos
  */
 router.get('/', async (req: Request, res: Response) => {
   try {
@@ -15,7 +15,7 @@ router.get('/', async (req: Request, res: Response) => {
       data: todos
     });
   } catch (error) {
-    console.error('Error in GET /api/todos:', error);
+    console.error('Error in GET /api/todo:', error);
     res.status(500).json({
       success: false,
       error: 'Internal server error'
@@ -24,7 +24,7 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 /**
- * GET /api/todos/:id - Get a single todo by ID
+ * GET /api/todo/:id - Get a single todo by ID
  */
 router.get('/:id', async (req: Request, res: Response) => {
   try {
@@ -51,7 +51,7 @@ router.get('/:id', async (req: Request, res: Response) => {
       data: todo
     });
   } catch (error) {
-    console.error('Error in GET /api/todos/:id:', error);
+    console.error('Error in GET /api/todo/:id:', error);
     res.status(500).json({
       success: false,
       error: 'Internal server error'
@@ -60,7 +60,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 /**
- * POST /api/todos - Create a new todo
+ * POST /api/todo - Create a new todo
  */
 router.post('/', async (req: Request, res: Response) => {
   try {
@@ -83,7 +83,7 @@ router.post('/', async (req: Request, res: Response) => {
       data: todo
     });
   } catch (error) {
-    console.error('Error in POST /api/todos:', error);
+    console.error('Error in POST /api/todo:', error);
     res.status(500).json({
       success: false,
       error: 'Internal server error'
@@ -92,7 +92,7 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 /**
- * PUT /api/todos/:id - Update an existing todo
+ * PUT /api/todo/:id - Update an existing todo
  */
 router.put('/:id', async (req: Request, res: Response) => {
   try {
@@ -141,7 +141,7 @@ router.put('/:id', async (req: Request, res: Response) => {
       data: todo
     });
   } catch (error) {
-    console.error('Error in PUT /api/todos/:id:', error);
+    console.error('Error in PUT /api/todo/:id:', error);
     res.status(500).json({
       success: false,
       error: 'Internal server error'
@@ -150,7 +150,7 @@ router.put('/:id', async (req: Request, res: Response) => {
 });
 
 /**
- * PATCH /api/todos/:id/toggle - Toggle todo completion status
+ * PATCH /api/todo/:id/toggle - Toggle todo completion status
  */
 router.patch('/:id/toggle', async (req: Request, res: Response) => {
   try {
@@ -177,7 +177,7 @@ router.patch('/:id/toggle', async (req: Request, res: Response) => {
       data: todo
     });
   } catch (error) {
-    console.error('Error in PATCH /api/todos/:id/toggle:', error);
+    console.error('Error in PATCH /api/todo/:id/toggle:', error);
     res.status(500).json({
       success: false,
       error: 'Internal server error'
@@ -186,7 +186,7 @@ router.patch('/:id/toggle', async (req: Request, res: Response) => {
 });
 
 /**
- * DELETE /api/todos/:id - Delete a todo
+ * DELETE /api/todo/:id - Delete a todo
  */
 router.delete('/:id', async (req: Request, res: Response) => {
   try {
@@ -213,7 +213,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
       message: 'Todo deleted successfully'
     });
   } catch (error) {
-    console.error('Error in DELETE /api/todos/:id:', error);
+    console.error('Error in DELETE /api/todo/:id:', error);
     res.status(500).json({
       success: false,
       error: 'Internal server error'

@@ -17,12 +17,12 @@ A modern TypeScript backend for the Manao Todo application with Express, Prisma,
 
 ### Todos
 
-- `GET /api/todos` - Get all todos
-- `GET /api/todos/:id` - Get a single todo by ID
-- `POST /api/todos` - Create a new todo
-- `PUT /api/todos/:id` - Update an existing todo
-- `PATCH /api/todos/:id/toggle` - Toggle todo completion status
-- `DELETE /api/todos/:id` - Delete a todo
+- `GET /api/todo` - Get all todos
+- `GET /api/todo/:id` - Get a single todo by ID
+- `POST /api/todo` - Create a new todo
+- `PUT /api/todo/:id` - Update an existing todo
+- `PATCH /api/todo/:id/toggle` - Toggle todo completion status
+- `DELETE /api/todo/:id` - Delete a todo
 
 ### Health Check
 
@@ -141,7 +141,7 @@ PORT=5002
 ### Create a Todo
 
 ```bash
-curl -X POST http://localhost:5002/api/todos \
+curl -X POST http://localhost:5002/api/todo \
   -H "Content-Type: application/json" \
   -d '{"title": "Buy groceries", "completed": false}'
 ```
@@ -149,13 +149,13 @@ curl -X POST http://localhost:5002/api/todos \
 ### Get All Todos
 
 ```bash
-curl http://localhost:5002/api/todos
+curl http://localhost:5002/api/todo
 ```
 
 ### Update a Todo
 
 ```bash
-curl -X PUT http://localhost:5002/api/todos/1 \
+curl -X PUT http://localhost:5002/api/todo/1 \
   -H "Content-Type: application/json" \
   -d '{"title": "Buy groceries and milk", "completed": true}'
 ```
@@ -163,13 +163,13 @@ curl -X PUT http://localhost:5002/api/todos/1 \
 ### Toggle Todo Completion
 
 ```bash
-curl -X PATCH http://localhost:5002/api/todos/1/toggle
+curl -X PATCH http://localhost:5002/api/todo/1/toggle
 ```
 
 ### Delete a Todo
 
 ```bash
-curl -X DELETE http://localhost:5002/api/todos/1
+curl -X DELETE http://localhost:5002/api/todo/1
 ```
 
 ## 🤝 Contributing
